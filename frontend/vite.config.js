@@ -4,4 +4,9 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    // bind to all interfaces so the dev server is reachable from Docker host
+    host: true,
+    port: 5173,
+  },
 })
