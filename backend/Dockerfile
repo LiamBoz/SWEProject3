@@ -1,14 +1,18 @@
-FROM node:20
+ARG PYTHON_VERSION=3.11.4
+FROM python:${PYTHON_VERSION}-slim AS base
+
+ENV PYTHONDONTWRITEBYTECODE=1
+
+ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-COPY package.json .
-COPY package-lock.json .
+COPY requirements.txt ./
 
-RUN npm install
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-EXPOSE 5173
+EXPOSE 8000
 
-CMD ["npm", "run", "dev"]
+CMD ["uvicorn", "app.main:app", "--host=0.0.0.0", "--port=8000"]
