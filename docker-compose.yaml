@@ -5,6 +5,7 @@ services:
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=recipes_db
     restart: always
     volumes:
       - db_data:/var/lib/postgresql/data
@@ -14,10 +15,15 @@ services:
   backend:
     build:
       context: ./backend
+    # volumes:
+    #   - ./backend:/app
+    #   - ./database:/app/database
     ports:
       - 8000:8000
     depends_on:
       - postgres
+    environment:
+      - DATABASE_URL=postgresql://admin:password@postgres:5432/recipes_db
   frontend:
     build:
       context: ./frontend
