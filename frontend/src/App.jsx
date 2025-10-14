@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeTab, setActiveTab] = useState("all");
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app">
+      {/* Header */}
+      <div className="header">
+        <h1 className="title">ChopMate</h1>
+        <button className="logout-btn">Logout</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+
+      {/* Search */}
+      <div className="search-section">
+        <input
+          type="text"
+          placeholder="Search recipes..."
+          className="search-input"
+        />
+        <button className="search-btn">Search</button>
+      </div>
+
+      {/* Tabs */}
+      <div className="tabs">
+        <button
+          className={`tab ${activeTab === "all" ? "active" : ""}`}
+          onClick={() => setActiveTab("all")}
+        >
+          All Recipes
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        <button
+          className={`tab ${activeTab === "add" ? "active" : ""}`}
+          onClick={() => setActiveTab("add")}
+        >
+          Add a Recipe
+        </button>
+        <button
+          className={`tab ${activeTab === "favorites" ? "active" : ""}`}
+          onClick={() => setActiveTab("favorites")}
+        >
+          Favorites
+        </button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+      {/* Main content area */}
+      <div className="content">
+        {activeTab === "all" && <p>All recipes will show up here.</p>}
+        {activeTab === "add" && <p>Form to add a recipe goes here.</p>}
+        {activeTab === "favorites" && <p>Your favorite recipes appear here.</p>}
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
