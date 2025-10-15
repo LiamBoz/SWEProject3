@@ -14,3 +14,15 @@ CREATE TABLE IF NOT EXISTS recipes (
     overview TEXT,
     img_src TEXT
 );
+
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    username TEXT UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS user_recipes_favorites (
+    user_id INT REFERENCES users(id),
+    recipe_id INT REFERENCES recipes(id),
+    PRIMARY KEY (user_id, recipe_id)
+);
