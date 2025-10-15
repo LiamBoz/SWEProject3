@@ -11,7 +11,7 @@ connection = psycopg2.connect(database='recipes_db',
 connection.autocommit = True
 cursor = connection.cursor()
 
-# Read csv with pandas from the backend container in docker
+# Read csv with pandas and insert into the database
 df = pd.read_csv('recipes.csv', index_col=0)
 for _, row in df.iterrows():
     cursor.execute('''
