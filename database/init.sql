@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS user_recipes_favorites (
-    user_id INT REFERENCES users(user_id),
-    recipe_id INT REFERENCES recipes(recipe_id),
+    user_id INT REFERENCES users(id),
+    recipe_id INT REFERENCES recipes(id),
     PRIMARY KEY (user_id, recipe_id)
 );
