@@ -1,0 +1,222 @@
+[
+  {
+    "url": "https://example.com/recipe1",
+    "Name": "Spaghetti Carbonara",
+    "Prep Time": "15 mins",
+    "Cook Time": "20 mins",
+    "Total Time": "35 mins",
+    "Servings": "4",
+    "Yield": "4 servings",
+    "Ingredients": "Spaghetti, eggs, pancetta, parmesan cheese, black pepper, salt",
+    "Directions": "Cook spaghetti. Fry pancetta. Mix eggs and cheese. Combine all with pepper."
+  },
+  {
+    "url": "https://example.com/recipe2",
+    "Name": "Chicken Alfredo",
+    "Prep Time": "10 mins",
+    "Cook Time": "25 mins",
+    "Total Time": "35 mins",
+    "Servings": "4",
+    "Yield": "4 servings",
+    "Ingredients": "Chicken breast, fettuccine, heavy cream, butter, garlic, parmesan",
+    "Directions": "Cook pasta. Saut\u00e9 chicken and garlic. Add cream and cheese. Mix with pasta."
+  },
+  {
+    "url": "https://example.com/recipe3",
+    "Name": "Vegetable Stir Fry",
+    "Prep Time": "15 mins",
+    "Cook Time": "10 mins",
+    "Total Time": "25 mins",
+    "Servings": "3",
+    "Yield": "3 servings",
+    "Ingredients": "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
+    "Directions": "Chop vegetables. Stir-fry with garlic and ginger. Add soy sauce. Serve hot."
+  },
+  {
+    "url": "https://example.com/recipe4",
+    "Name": "Beef Tacos",
+    "Prep Time": "10 mins",
+    "Cook Time": "15 mins",
+    "Total Time": "25 mins",
+    "Servings": "4",
+    "Yield": "8 tacos",
+    "Ingredients": "Ground beef, taco shells, lettuce, tomato, cheese, taco seasoning",
+    "Directions": "Cook beef with seasoning. Fill shells with beef and toppings."
+  },
+  {
+    "url": "https://example.com/recipe5",
+    "Name": "Pancakes",
+    "Prep Time": "10 mins",
+    "Cook Time": "15 mins",
+    "Total Time": "25 mins",
+    "Servings": "4",
+    "Yield": "8 pancakes",
+    "Ingredients": "Flour, milk, eggs, baking powder, sugar, butter",
+    "Directions": "Mix batter. Pour onto griddle. Flip when bubbles form. Serve with syrup."
+  },
+  {
+    "url": "https://example.com/recipe6",
+    "Name": "Caesar Salad",
+    "Prep Time": "15 mins",
+    "Cook Time": "0 mins",
+    "Total Time": "15 mins",
+    "Servings": "2",
+    "Yield": "2 servings",
+    "Ingredients": "Romaine lettuce, croutons, parmesan, Caesar dressing",
+    "Directions": "Toss lettuce with dressing. Add croutons and parmesan."
+  },
+  {
+    "url": "https://example.com/recipe7",
+    "Name": "Tomato Soup",
+    "Prep Time": "10 mins",
+    "Cook Time": "30 mins",
+    "Total Time": "40 mins",
+    "Servings": "4",
+    "Yield": "4 bowls",
+    "Ingredients": "Tomatoes, onion, garlic, basil, broth, cream",
+    "Directions": "Saut\u00e9 onion and garlic. Add tomatoes and broth. Blend and simmer."
+  },
+  {
+    "url": "https://example.com/recipe8",
+    "Name": "Grilled Cheese Sandwich",
+    "Prep Time": "5 mins",
+    "Cook Time": "10 mins",
+    "Total Time": "15 mins",
+    "Servings": "1",
+    "Yield": "1 sandwich",
+    "Ingredients": "Bread, cheese, butter",
+    "Directions": "Butter bread. Add cheese between slices. Grill until golden."
+  },
+  {
+    "url": "https://example.com/recipe9",
+    "Name": "Chocolate Chip Cookies",
+    "Prep Time": "15 mins",
+    "Cook Time": "12 mins",
+    "Total Time": "27 mins",
+    "Servings": "24",
+    "Yield": "2 dozen cookies",
+    "Ingredients": "Flour, sugar, butter, eggs, chocolate chips, baking soda, salt",
+    "Directions": "Mix ingredients. Drop spoonfuls on tray. Bake until golden."
+  },
+  {
+    "url": "https://example.com/recipe10",
+    "Name": "Beef Stew",
+    "Prep Time": "20 mins",
+    "Cook Time": "2 hrs",
+    "Total Time": "2 hrs 20 mins",
+    "Servings": "6",
+    "Yield": "6 bowls",
+    "Ingredients": "Beef chunks, potatoes, carrots, onions, beef broth, herbs",
+    "Directions": "Brown beef. Add vegetables and broth. Simmer until tender."
+  },
+  {
+    "url": "https://example.com/recipe11",
+    "Name": "Omelette",
+    "Prep Time": "5 mins",
+    "Cook Time": "5 mins",
+    "Total Time": "10 mins",
+    "Servings": "1",
+    "Yield": "1 omelette",
+    "Ingredients": "Eggs, milk, cheese, salt, pepper",
+    "Directions": "Beat eggs. Pour into pan. Add cheese. Fold and cook until set."
+  },
+  {
+    "url": "https://example.com/recipe12",
+    "Name": "Greek Salad",
+    "Prep Time": "10 mins",
+    "Cook Time": "0 mins",
+    "Total Time": "10 mins",
+    "Servings": "2",
+    "Yield": "2 servings",
+    "Ingredients": "Tomatoes, cucumber, olives, feta cheese, olive oil, oregano",
+    "Directions": "Chop vegetables. Mix with olives, feta, and dressing."
+  },
+  {
+    "url": "https://example.com/recipe13",
+    "Name": "Lasagna",
+    "Prep Time": "30 mins",
+    "Cook Time": "1 hr",
+    "Total Time": "1 hr 30 mins",
+    "Servings": "8",
+    "Yield": "1 casserole dish",
+    "Ingredients": "Lasagna noodles, ricotta, ground beef, tomato sauce, mozzarella",
+    "Directions": "Layer noodles with sauce and cheese. Bake until bubbly."
+  },
+  {
+    "url": "https://example.com/recipe14",
+    "Name": "Garlic Bread",
+    "Prep Time": "5 mins",
+    "Cook Time": "10 mins",
+    "Total Time": "15 mins",
+    "Servings": "4",
+    "Yield": "8 slices",
+    "Ingredients": "Baguette, butter, garlic, parsley",
+    "Directions": "Spread garlic butter on bread. Bake until golden."
+  },
+  {
+    "url": "https://example.com/recipe15",
+    "Name": "Fried Rice",
+    "Prep Time": "10 mins",
+    "Cook Time": "15 mins",
+    "Total Time": "25 mins",
+    "Servings": "4",
+    "Yield": "4 bowls",
+    "Ingredients": "Rice, eggs, peas, carrots, soy sauce, oil",
+    "Directions": "Scramble eggs. Add rice and veggies. Stir-fry with soy sauce."
+  },
+  {
+    "url": "https://example.com/recipe16",
+    "Name": "Banana Bread",
+    "Prep Time": "15 mins",
+    "Cook Time": "1 hr",
+    "Total Time": "1 hr 15 mins",
+    "Servings": "8",
+    "Yield": "1 loaf",
+    "Ingredients": "Bananas, flour, sugar, eggs, butter, baking soda",
+    "Directions": "Mix all ingredients. Pour into loaf pan. Bake until done."
+  },
+  {
+    "url": "https://example.com/recipe17",
+    "Name": "Tuna Salad",
+    "Prep Time": "10 mins",
+    "Cook Time": "0 mins",
+    "Total Time": "10 mins",
+    "Servings": "2",
+    "Yield": "2 servings",
+    "Ingredients": "Canned tuna, mayonnaise, celery, onion, salt, pepper",
+    "Directions": "Mix all ingredients. Serve chilled."
+  },
+  {
+    "url": "https://example.com/recipe18",
+    "Name": "Mashed Potatoes",
+    "Prep Time": "15 mins",
+    "Cook Time": "20 mins",
+    "Total Time": "35 mins",
+    "Servings": "4",
+    "Yield": "4 servings",
+    "Ingredients": "Potatoes, butter, milk, salt, pepper",
+    "Directions": "Boil potatoes. Mash with butter and milk. Season to taste."
+  },
+  {
+    "url": "https://example.com/recipe19",
+    "Name": "Shrimp Scampi",
+    "Prep Time": "10 mins",
+    "Cook Time": "10 mins",
+    "Total Time": "20 mins",
+    "Servings": "2",
+    "Yield": "2 servings",
+    "Ingredients": "Shrimp, garlic, butter, lemon juice, parsley, pasta",
+    "Directions": "Saut\u00e9 garlic and shrimp in butter. Add lemon juice. Serve with pasta."
+  },
+  {
+    "url": "https://example.com/recipe20",
+    "Name": "French Toast",
+    "Prep Time": "10 mins",
+    "Cook Time": "10 mins",
+    "Total Time": "20 mins",
+    "Servings": "4",
+    "Yield": "8 slices",
+    "Ingredients": "Bread, eggs, milk, cinnamon, sugar, butter",
+    "Directions": "Dip bread in egg mixture. Cook on griddle until golden."
+  }
+]

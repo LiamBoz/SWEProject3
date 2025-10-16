@@ -13,14 +13,6 @@ function App() {
       </div>
 
       {/* Search */}
-      <div className="search-section">
-        <input
-          type="text"
-          placeholder="Search recipes..."
-          className="search-input"
-        />
-        <button className="search-btn">Search</button>
-      </div>
 
       {/* Tabs */}
       <div className="tabs">
@@ -46,7 +38,15 @@ function App() {
 
       {/* Main content area */}
       <div className="content">
-        {activeTab === "all" && <p>All recipes will show up here.</p>}
+        {activeTab === "all" && 
+        <div className="search-section">
+        <input
+          type="text"
+          placeholder="Search recipes..."
+          className="search-input"
+        />
+        <button className="search-btn">Search</button>
+      </div>}
         {activeTab === "add" && <p>Form to add a recipe goes here.</p>}
         {activeTab === "favorites" && <p>Your favorite recipes appear here.</p>}
       </div>
