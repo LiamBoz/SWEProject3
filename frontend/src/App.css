@@ -47,6 +47,7 @@ body {
   display: flex;
   align-items: center;
   margin-top: 20px;
+  justify-content: center;
 }
 
 .search-input {
@@ -60,7 +61,7 @@ body {
 
 .search-btn {
   margin-left: 10px;
-  background-color: #a4c3a4;
+  background-color: #075507;
   border: none;
   border-radius: 10px;
   padding: 8px 18px;
@@ -90,7 +91,7 @@ body {
 }
 
 .tab.active {
-  background-color: #984b5d;
+  background-color: #87123D;
   color: #FFF;
 }
 
@@ -111,7 +112,7 @@ body {
   flex: 1; /* fills remaining space in the screen */
   width: 100%;
   box-sizing: border-box;
-  background-color: #a7c3aa;
+  /*background-color: #87123D;*/
   border: 1px solid black;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -120,3 +121,14 @@ body {
   padding: 8px 18px;
 }
 
+.content.all {
+  background-color: #87123D;
+}
+
+.content.add {
+  background-color: #92CCB4;
+}
+
+.content.favorites {
+  background-color: #136E50;
+}

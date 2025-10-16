@@ -36,17 +36,17 @@ function App() {
         </button>
       </div>
 
-      {/* Main content area */}
-      <div className="content">
-        {activeTab === "all" && 
-        <div className="search-section">
-        <input
-          type="text"
-          placeholder="Search recipes..."
-          className="search-input"
-        />
-        <button className="search-btn">Search</button>
-      </div>}
+      <div className={`content ${activeTab}`}>
+        {activeTab === "all" && (
+          <div className="search-section">
+            <input
+              type="text"
+              placeholder="Search recipes..."
+              className="search-input"
+            />
+              <button className="search-btn">Search</button>
+          </div>
+        )}
         {activeTab === "add" && <p>Form to add a recipe goes here.</p>}
         {activeTab === "favorites" && <p>Your favorite recipes appear here.</p>}
       </div>
