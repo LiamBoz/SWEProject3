@@ -81,8 +81,8 @@ body {
 
 .tab {
   flex: 1;
-  background-color: #8fa996;
-  color: black;
+  /*background-color: #87123D;
+  color: black;*/
   font-weight: 700;
   padding: 12px;
   border: 1px solid black;
@@ -90,14 +90,27 @@ body {
   transition: background 0.2s ease;
 }
 
-.tab.active {
-  background-color: #87123D;
-  color: #FFF;
+.tab.all {
+  background-color: #87123D; 
+}
+.tab.all.active {
+  background-color: #87123D; 
 }
 
-.tab:not(:last-child) {
-  border-right: none;
+.tab.add {
+  background-color: #92CCB4; 
 }
+.tab.add.active {
+  background-color: #92CCB4; 
+}
+
+.tab.favorites {
+  background-color: #136E50; 
+}
+.tab.favorites.active {
+  background-color: #136E50; 
+}
+
 
 .tab:first-child {
   border-top-left-radius: 10px;

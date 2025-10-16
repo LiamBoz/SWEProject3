@@ -17,25 +17,24 @@ function App() {
       {/* Tabs */}
       <div className="tabs">
         <button
-          className={`tab ${activeTab === "all" ? "active" : ""}`}
+          className={`tab all ${activeTab === "all" ? "active" : ""}`}
           onClick={() => setActiveTab("all")}
         >
           All Recipes
         </button>
         <button
-          className={`tab ${activeTab === "add" ? "active" : ""}`}
+          className={`tab add ${activeTab === "add" ? "active" : ""}`}
           onClick={() => setActiveTab("add")}
         >
           Add a Recipe
         </button>
         <button
-          className={`tab ${activeTab === "favorites" ? "active" : ""}`}
+          className={`tab favorites ${activeTab === "favorites" ? "active" : ""}`}
           onClick={() => setActiveTab("favorites")}
         >
           Favorites
         </button>
       </div>
-
       <div className={`content ${activeTab}`}>
         {activeTab === "all" && (
           <div className="search-section">
