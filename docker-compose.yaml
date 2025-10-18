@@ -21,8 +21,8 @@ services:
       - 8000:8000
     depends_on:
       - postgres
-    environment:
-      - DATABASE_URL=postgresql://admin:password@postgres:5432/recipes_db
+    # environment:
+    #   - DATABASE_URL=postgresql://admin:password@postgres:5432/recipes_db
   frontend:
     build:
       context: ./frontend
