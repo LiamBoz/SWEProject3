@@ -1,4 +1,3 @@
-#todo : connect to db with sqlalchemy and create_engine
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 import os
