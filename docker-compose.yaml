@@ -15,9 +15,8 @@ services:
   backend:
     build:
       context: ./backend
-    # volumes:
-    #   - ./backend:/app
-    #   - ./database:/app/database
+    volumes:
+      - ./backend:/app
     ports:
       - 8000:8000
     depends_on:
