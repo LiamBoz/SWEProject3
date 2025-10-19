@@ -1,21 +1,21 @@
-from typing import Annotated
-from fastapi import FastAPI
 from pydantic import BaseModel
 
-class Recipes(BaseModel):
+class Recipe(BaseModel):
     id: int
     recipe_name: str
-    prep_time: str
-    cook_time: str
-    total_time: str
-    servings: int
     ingredients: str
     directions: str
-    rating: float
-    url: str
-    cuisine_path: str
-    nutrition: str
-    overview: str 
-    img_src: str 
+    prep_time: str | None = None
+    cook_time: str | None = None
+    total_time: str | None = None
+    servings: int | None = None
+    rating: float | None = None
+    url: str | None = None
+    cuisine_path: str | None = None
+    nutrition: str | None = None
+    overview: str | None = None
+    img_src: str | None = None
 
-
+    # allows UserOut to import Recipe successfully
+    class Config:
+        orm_mode = True
