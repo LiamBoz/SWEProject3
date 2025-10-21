@@ -3,7 +3,13 @@ body {
   background-color: #ffffff;
   margin: 0;
   padding: 0;
+  overflow-y: scroll;
 }
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
 
 .app {
   display: flex;
