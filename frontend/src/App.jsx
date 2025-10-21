@@ -1,205 +1,12 @@
 import { useState } from "react";
 import "./App.css";
-
-
-const recipes = [
-  {
-    url: "https://example.com/recipe1",
-    Name: "Spaghetti Carbonara",
-    "Prep Time": "15 mins",
-    "Cook Time": "20 mins",
-    "Total Time": "35 mins",
-    Ingredients:
-      "Spaghetti, eggs, pancetta, parmesan cheese, black pepper, salt",
-  },
-  {
-    url: "https://example.com/recipe2",
-    Name: "Chicken Alfredo",
-    "Prep Time": "10 mins",
-    "Cook Time": "25 mins",
-    "Total Time": "35 mins",
-    Ingredients: "Chicken breast, fettuccine, heavy cream, butter, garlic, parmesan",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-  {
-    url: "https://example.com/recipe3",
-    Name: "Vegetable Stir Fry",
-    "Prep Time": "15 mins",
-    "Cook Time": "10 mins",
-    "Total Time": "25 mins",
-    Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
-  },
-];
+import { useRecipes } from "./hooks/useRecipes.ts"
 
 function App() {
   const [activeTab, setActiveTab] = useState("all");
+
+  const { data: recipes = [], isLoading, error } = useRecipes();
+  console.log(recipes)
 
   return (
     <div className="app">
@@ -248,14 +55,12 @@ function App() {
               {recipes.map((recipe, index) => (
                 <div key={index} className="recipe-card">
                   <img
-                    src={`https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%2Fid%2FOIP.jUfCu2A6ilKJAdybISEMgwHaHa%3Fcb%3D12%26pid%3DApi&f=1&ipt=35a22f7cbedcd66e44cebe192ac5eada28926f478cfc69e2212f73bfbb1c9540&ipo=images,${recipe.Name}`}
-                    alt={recipe.Name}
+                    src={recipe.img_src}
+                    alt={recipe.recipe_name}
                     className="recipe-image"
                   />
-                  <h3 className="recipe-title">{recipe.Name}</h3>
+                  <h3 className="recipe-title">{recipe.recipe_name}</h3>
                   <p className="recipe-desc">
-                    ⏱ {recipe["Total Time"]} | 🍽{" "}
-                    {recipe.Ingredients.split(",").slice(0, 3).join(", ")}...
                   </p>
                   <a
                     href={recipe.url}

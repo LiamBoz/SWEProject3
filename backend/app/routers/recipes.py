@@ -7,5 +7,5 @@ router = APIRouter(prefix="/recipes")
 
 @router.get("/")
 async def get_recipes(db: Annotated[Any, Depends(get_db)]):
-    return await get_all_recipes(db)
+    return get_all_recipes(db)
 
