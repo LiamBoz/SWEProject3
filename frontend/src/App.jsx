@@ -196,7 +196,6 @@ const recipes = [
     "Total Time": "25 mins",
     Ingredients: "Broccoli, bell peppers, carrots, soy sauce, garlic, ginger, oil",
   },
-  // ... add rest of your recipes here
 ];
 
 function App() {
@@ -271,7 +270,39 @@ function App() {
             </div>
           </>
         )}
-        {activeTab === "add" && <p>Form to add a recipe goes here.</p>}
+        {activeTab === "add" && 
+        <div className="add-recipe-form">
+          <h2>Add a Recipe</h2>
+          <form>
+            <label>Recipe Name</label>
+            <input type="text" placeholder="e.g. Spaghetti Carbonara" />
+
+            <label>Description</label>
+            <textarea placeholder="Brief description of your recipe"></textarea>
+
+            <label>Ingredients (comma separated)</label>
+            <textarea placeholder="e.g. pasta, eggs, cheese, pancetta"></textarea>
+
+            <label>Instructions</label>
+            <textarea placeholder="Step-by-step instructions"></textarea>
+
+            <div className="time-inputs">
+              <label>Prep Time (min)</label>
+              <input type="number" min="0" />
+              <label>Cook Time (min)</label>
+              <input type="number" min="0" />
+              <label>Servings</label>
+              <input type="number" min="1" />
+            </div>
+
+            <label>Image URL (optional)</label>
+            <input type="text" placeholder="https://example.com/recipe.jpg" />
+
+            <button type="submit">Add Recipe</button>
+          </form>
+        </div>
+
+        }
         {activeTab === "favorites" && <p>Your favorite recipes appear here.</p>}
       </div>
     </div>
