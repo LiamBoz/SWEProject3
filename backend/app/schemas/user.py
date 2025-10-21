@@ -2,10 +2,17 @@ from typing import Annotated
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-class User(BaseModel):
+class UserCreate(BaseModel):
     username: str
     password: str
 
-class UserDB(User):
-    id: int
-    password_hash: str
+class UserLogin(BaseModel):
+    username: str
+    password: str
+
+class UserLoginOut(BaseModel):
+    pass
+
+class UserCreateOut(BaseModel):
+    username: str
+
