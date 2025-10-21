@@ -3,6 +3,7 @@ from typing import Annotated, Any
 from app.services.recipe_service import *
 from app.db.session import get_db
 from app.schemas.recipe import Recipe as RecipeSchema
+from app.schemas.recipe import RecipeCreate
 
 router = APIRouter(prefix="/recipes")
 
@@ -18,5 +19,5 @@ def get_recipe(recipe_id: int, db: Annotated[Any, Depends(get_db)]):
     return recipe
 
 @router.post("/", response_model=RecipeSchema, status_code=status.HTTP_201_CREATED)
-def post_recipe(payload: RecipeSchema, db: Annotated[Any, Depends(get_db)]):
+def post_recipe(payload: RecipeCreate, db: Annotated[Any, Depends(get_db)]):
     return create_recipe(db, payload)
