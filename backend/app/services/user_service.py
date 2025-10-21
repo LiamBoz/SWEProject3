@@ -2,7 +2,7 @@ from app.models.user import User
 from sqlalchemy import select
 from fastapi import HTTPException
 
-async def create_user(db, username: str, password: str):
+def create_user(db, username: str, password: str):
     exists = db.execute(select(User).where(User.username == username)).scalar_one_or_none()
     if exists:
         raise HTTPException(status_code=404, detail="User already exists")
@@ -13,9 +13,10 @@ async def create_user(db, username: str, password: str):
         db.commit()
         return user.username
     except Exception:
+        db.rollback()
         raise HTTPException(status_code=500, detail="Server error")
 
-async def login_user(db, username: str, password: str):
+def login_user(db, username: str, password: str):
     exists = db.execute(select(User).where(User.username == username)).scalar_one_or_none()
     if not exists:
         raise HTTPException(status_code=404, detail="Username or password incorrect")
