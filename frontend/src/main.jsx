@@ -1,7 +1,7 @@
 // main.jsx (or main.tsx)
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx"; // or .tsx
+import App from "./App.tsx"; // or .tsx
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // (optional) import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
