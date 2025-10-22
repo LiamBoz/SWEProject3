@@ -29,7 +29,10 @@ services:
     build:
       context: ./frontend
     ports:
-      - 5173:5173
+      - 5173:5173    
+    volumes:
+      - ./frontend:/app:delegated
+      - /app/node_modules
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4:latest
