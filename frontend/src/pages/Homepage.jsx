@@ -1,0 +1,56 @@
+import { useState } from "react";
+import "../App.css";
+
+export function Homepage(){
+ const [activeTab, setActiveTab] = useState("all");
+
+  return (
+    <div className="app">
+      {/* Header */}
+      <div className="header">
+        <h1 className="title">Chopify</h1>
+        <button className="logout-btn">Logout</button>
+      </div>
+
+      {/* Search */}
+      <div className="search-section">
+        <input
+          type="text"
+          placeholder="Search recipes..."
+          className="search-input"
+        />
+        <button className="search-btn">Search</button>
+      </div>
+
+      {/* Tabs */}
+      <div className="tabs">
+        <button
+          className={`tab ${activeTab === "all" ? "active" : ""}`}
+          onClick={() => setActiveTab("all")}
+        >
+          All Recipes
+        </button>
+        <button
+          className={`tab ${activeTab === "add" ? "active" : ""}`}
+          onClick={() => setActiveTab("add")}
+        >
+          Add a Recipe
+        </button>
+        <button
+          className={`tab ${activeTab === "favorites" ? "active" : ""}`}
+          onClick={() => setActiveTab("favorites")}
+        >
+          Favorites
+        </button>
+      </div>
+
+      {/* Main content area */}
+      <div className="content">
+        {activeTab === "all" && <p>All recipes will show up here.</p>}
+        {activeTab === "add" && <p>Form to add a recipe goes here.</p>}
+        {activeTab === "favorites" && <p>Your favorite recipes appear here.</p>}
+      </div>
+    </div>
+  );
+}
+
