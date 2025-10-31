@@ -1,6 +1,8 @@
 import "../App.css";
 import { useState } from 'react';
-import { useRecipes } from "../hooks/useRecipes.ts"
+import { useNavigate } from 'react-router-dom';
+import { useRecipes } from "../hooks/useRecipes.ts";
+
 
 
 export function Homepage(){
@@ -8,13 +10,19 @@ const [activeTab, setActiveTab] = useState("all");
 
   const { data: recipes = [], isLoading, error } = useRecipes();
   console.log(recipes)
+  const navigate = useNavigate();
+
+  function handleLogout(){
+    //isAuthenticated must be set to false here
+    navigate('/');
+  }
 
   return (
     <div className="app">
       {/* Header */}
       <div className="header">
         <h1 className="title">Chopify</h1>
-        <button className="logout-btn">Logout</button>
+        <button className="logout-btn" onClick={handleLogout}>Logout</button>
       </div>
 
       {/* Search */}
