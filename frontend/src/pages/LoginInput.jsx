@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../App.css";
+import "./LoginInput.css";
 
 
 export function LoginInput() {
@@ -99,7 +99,7 @@ export function LoginInput() {
         <button 
         type="submit"
         onClick={login}
-        className="logout-btn">
+        className="login-btn">
             Login
           </button>
           {/* </form> */}
