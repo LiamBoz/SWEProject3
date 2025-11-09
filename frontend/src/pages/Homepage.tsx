@@ -1,9 +1,10 @@
+// @ts-ignore: missing module declaration for plain CSS imports
 import "../App.css";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecipes } from "../hooks/useRecipes.ts";
-
-
+import { usePostRecipe } from "../hooks/postRecipe.ts";
+import type { RecipeCreate } from "../services/recipes.ts";
 
 export function Homepage(){
 const [activeTab, setActiveTab] = useState("all");
@@ -16,6 +17,22 @@ const [activeTab, setActiveTab] = useState("all");
     //isAuthenticated must be set to false here
     navigate('/');
   }
+
+function handleAddRecipe(e: React.FormEvent<HTMLFormElement>) {
+  e.preventDefault();             // STOP default page reload
+  mutate(testRecipe);             // call your mutation
+}
+
+  const testRecipe: RecipeCreate = {
+    recipe_name: "Test Recipe",
+    prep_time: "30 mins",
+    cook_time: "1 hr",
+    total_time: "1 hour 30 mins",
+    servings: 5,
+    ingredients: "ingredient 1, ingredient 2, ingredient 3",
+    directions: "step 1 step 2 step 3"
+  };
+  const { mutate } = usePostRecipe();
 
   return (
     <div className="app">
@@ -112,7 +129,9 @@ const [activeTab, setActiveTab] = useState("all");
             <label>Image URL (optional)</label>
             <input type="text" placeholder="https://example.com/recipe.jpg" />
 
-            <button type="submit">Add Recipe</button>
+            <form onSubmit={handleAddRecipe}>
+              <button type="submit">Add Recipe</button>
+            </form>
           </form>
         </div>
 

@@ -9,7 +9,23 @@ export type Recipe = {
     img_src: string; 
 };
 
-export async function getRecipes(): Promise<Recipe> {
+export type RecipeCreate = {
+    recipe_name: string
+    prep_time: string
+    cook_time: string
+    total_time: string
+    servings: number
+    ingredients: string
+    directions: string
+    // nutrition: string
+};
+
+export async function getRecipes(): Promise<Recipe[]> {
 		const res = await http.get("/recipes");
-		return res.data as Recipe;
+		return res.data as Recipe[];
+}
+
+export async function postRecipe(newRecipe: RecipeCreate): Promise<Boolean> {
+    const res = await http.post("/users/login", newRecipe);
+    return res.data as Boolean;
 }
