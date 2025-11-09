@@ -1,6 +1,7 @@
 #this is where the functions that fetch data & handle it for the api routes will go
 from app.models.recipe import Recipe
 from app.schemas.recipe import RecipeCreate
+from fastapi import HTTPException
 
 def get_all_recipes(db):
     return db.query(Recipe).all()
@@ -11,7 +12,7 @@ def create_recipe(db, payload: RecipeCreate):
     try:
         db.commit()
         db.refresh(new_recipe)
-        return new_recipe
+        return True
     except Exception:
         db.rollback()
-        raise
+        raise HTTPException(status_code=500, detail="Failed to create recipe")

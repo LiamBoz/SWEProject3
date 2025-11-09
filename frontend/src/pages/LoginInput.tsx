@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./LoginInput.css";
 
+import { useCreateUser, useLoginUser } from "../hooks/users.ts";
+// @ts-ignore: missing module declaration
+import "./LoginInput.css";
+import type { UserInput } from "../services/users";
 
 export function LoginInput() {
+  const { mutate: createMutate } = useCreateUser();
+  const { mutate: loginMutate } = useLoginUser();
+
   const [ usernameInput, setUsernameInput ] = useState('');
   const [ passwordInput, setPasswordInput ] = useState('');
 
@@ -28,8 +34,9 @@ export function LoginInput() {
     setPasswordInput(event.target.value);
   }
 
-  function handleLogin(){
+  function handleLogin(user: UserInput){
    // setIsAuthenticated(true);
+    loginMutate(user);
     navigate('/homepage');
   }
 
@@ -59,7 +66,11 @@ export function LoginInput() {
     setLoginActivated(true);
 
     if (validUsername && usernameInput && passwordInput){
-      handleLogin();
+      const user: UserInput = {
+        username: usernameInput,
+        password: passwordInput
+      };
+      handleLogin(user);
     }
 
     //clears input from search bars

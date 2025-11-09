@@ -10,9 +10,6 @@ class UserLogin(BaseModel):
     username: str
     password: str
 
-class UserLoginOut(BaseModel):
-    pass
-
-class UserCreateOut(BaseModel):
+class UserResponse(BaseModel):
     username: str
 

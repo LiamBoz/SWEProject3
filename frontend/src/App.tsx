@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { LoginInput } from "./pages/LoginInput";
-import { Homepage } from "./pages/Homepage";
+import { LoginInput } from "./pages/LoginInput.tsx";
+import { Homepage } from "./pages/Homepage.tsx";
 
 function App() {
   return (
