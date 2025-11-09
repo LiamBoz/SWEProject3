@@ -18,4 +18,4 @@ class RecipeCreate(BaseModel):
     servings: int
     ingredients: str
     directions: str
-    nutrition: str | None = None
+    # nutrition: str | None = None
