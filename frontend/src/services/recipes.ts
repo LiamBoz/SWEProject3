@@ -26,6 +26,6 @@ export async function getRecipes(): Promise<Recipe[]> {
 }
 
 export async function postRecipe(newRecipe: RecipeCreate): Promise<Boolean> {
-    const res = await http.post("/users/login", newRecipe);
+    const res = await http.post("/recipes", newRecipe);
     return res.data as Boolean;
 }

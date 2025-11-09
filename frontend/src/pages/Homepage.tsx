@@ -7,32 +7,50 @@ import { usePostRecipe } from "../hooks/postRecipe.ts";
 import type { RecipeCreate } from "../services/recipes.ts";
 
 export function Homepage(){
-const [activeTab, setActiveTab] = useState("all");
+  const [activeTab, setActiveTab] = useState("all");
 
   const { data: recipes = [], isLoading, error } = useRecipes();
   console.log(recipes)
   const navigate = useNavigate();
+  const { mutate } = usePostRecipe();
+
+  const [newRecipe, setNewRecipe] = useState<RecipeCreate>({
+    recipe_name: "",
+    prep_time: "",
+    cook_time: "",
+    total_time: "",
+    servings: 0,
+    ingredients: "",
+    directions: ""
+  });
 
   function handleLogout(){
     //isAuthenticated must be set to false here
     navigate('/');
   }
 
-function handleAddRecipe(e: React.FormEvent<HTMLFormElement>) {
-  e.preventDefault();             // STOP default page reload
-  mutate(testRecipe);             // call your mutation
-}
+  function handleAddRecipe(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();             // STOP default page reload
+    mutate(newRecipe);             // call your mutation
+  }
 
-  const testRecipe: RecipeCreate = {
-    recipe_name: "Test Recipe",
-    prep_time: "30 mins",
-    cook_time: "1 hr",
-    total_time: "1 hour 30 mins",
-    servings: 5,
-    ingredients: "ingredient 1, ingredient 2, ingredient 3",
-    directions: "step 1 step 2 step 3"
-  };
-  const { mutate } = usePostRecipe();
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setNewRecipe(prev => ({
+        ...prev,
+        [name]: value
+    }));
+};
+
+  // const testRecipe: RecipeCreate = {
+  //   recipe_name: "Test Recipe",
+  //   prep_time: "30 mins",
+  //   cook_time: "1 hr",
+  //   total_time: "1 hour 30 mins",
+  //   servings: 5,
+  //   ingredients: "ingredient 1, ingredient 2, ingredient 3",
+  //   directions: "step 1 step 2 step 3"
+  // };
 
   return (
     <div className="app">
@@ -104,9 +122,15 @@ function handleAddRecipe(e: React.FormEvent<HTMLFormElement>) {
         {activeTab === "add" && 
         <div className="add-recipe-form">
           <h2>Add a Recipe</h2>
-          <form>
+          <form onSubmit={handleAddRecipe}>
             <label>Recipe Name</label>
-            <input type="text" placeholder="e.g. Spaghetti Carbonara" />
+            <input 
+              type="text"
+              name="recipe_name"
+              value={newRecipe.recipe_name}
+              onChange={handleInputChange}
+              placeholder="e.g. Spaghetti Carbonara" 
+            />
 
             <label>Description</label>
             <textarea placeholder="Brief description of your recipe"></textarea>
@@ -129,9 +153,7 @@ function handleAddRecipe(e: React.FormEvent<HTMLFormElement>) {
             <label>Image URL (optional)</label>
             <input type="text" placeholder="https://example.com/recipe.jpg" />
 
-            <form onSubmit={handleAddRecipe}>
-              <button type="submit">Add Recipe</button>
-            </form>
+            <button type="submit">Add Recipe</button>
           </form>
         </div>
 

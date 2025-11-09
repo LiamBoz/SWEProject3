@@ -15,6 +15,6 @@ export async function createUser(newUser: UserInput): Promise<UserResponse> {
 }
 
 export async function loginUser(user: UserInput): Promise<UserResponse> {
-    const res = await http.post("/users", user);
+    const res = await http.post("/users/login", user);
     return res.data as UserResponse;
 }
