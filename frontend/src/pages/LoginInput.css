@@ -61,6 +61,7 @@ body {
   padding: 8px 20px;
   font-weight: bold;
   cursor: pointer;
+  margin: 10px;
 }
 
 .login-btn:hover {
