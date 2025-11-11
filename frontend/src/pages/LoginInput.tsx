@@ -19,9 +19,21 @@ export function LoginInput() {
   const [ showUsername, setShowUsername] = useState(false);
   const [ loginActivated, setLoginActivated ] = useState(false);
 
+  const [ createAccount, setCreateAccount ] = useState(false);
+  const [ isLoggingIn, setIsLoggingIn ] = useState(false);
+
   //const [ isAuthenticated, setIsAuthenticated ] = useState(false);
 
   const navigate = useNavigate();
+
+  function LoggingIn(){
+    setIsLoggingIn(true);
+  }
+
+  function CreateAccount(){
+    setCreateAccount(true);
+    setIsLoggingIn(true);
+  }
 
 
   function saveUsernameText(event){
@@ -85,6 +97,14 @@ export function LoginInput() {
           Welcome to Chopify
         </p>
       {/*<form onSubmit={handleInput}> */}
+      {(!isLoggingIn) &&
+          <div>
+            <button className="login-btn" onClick={LoggingIn}>Login</button>
+            <button className="login-btn" onClick={CreateAccount}>Create Account</button>
+          </div>
+        }
+         {isLoggingIn &&
+        <>
         <div className="login-bar">
            {/*Username bar*/}
            <input
@@ -106,13 +126,25 @@ export function LoginInput() {
               className="password-input"
           />
           </div>
-        {/*Login button*/}
+           {/*Login button*/}
+        {!createAccount ? 
         <button 
-        type="submit"
-        onClick={login}
-        className="login-btn">
+          type="submit"
+          onClick={login}
+          className="login-btn">
             Login
-          </button>
+        </button> : 
+        <button 
+          type="submit"
+          onClick={login}
+          className="login-btn">
+            Create Account
+        </button>
+        }
+
+        <button className="login-btn" onClick={() => {setIsLoggingIn(false); setCreateAccount(false); setLoginActivated(false); setShowUsername(false); setUsernameInput(''); setPasswordInput('');}}>
+          Cancel
+        </button>
           {/* </form> */}
 
          {/*Conditional paragraphs displayed*/}
@@ -152,6 +184,8 @@ export function LoginInput() {
               Error! Please enter your password.
             </p>
             }
+            </>
+}
     </div>  
   );
 }
