@@ -10,7 +10,7 @@ export type UserResponse = {
 };
 
 export async function createUser(newUser: UserInput): Promise<UserResponse> {
-    const res = await http.post("/users", newUser);
+    const res = await http.post("/users/", newUser);
     return res.data as UserResponse;
 }
 

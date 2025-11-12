@@ -16,3 +16,9 @@ def create_recipe(db, payload: RecipeCreate):
     except Exception:
         db.rollback()
         raise HTTPException(status_code=500, detail="Failed to create recipe")
+    
+def get_recipe(db, id: int):
+    recipe = db.query(Recipe).filter(Recipe.id == id).first()
+    if not recipe:
+        raise HTTPException(status=404, detail="Recipe not found")
+    return recipe
