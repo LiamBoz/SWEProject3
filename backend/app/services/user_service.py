@@ -27,10 +27,10 @@ async def create_user(db, username: str, password: str):
 async def login_user(db, username: str, password: str):
     exists = db.execute(select(User).where(User.username == username)).scalar_one_or_none()
     if not exists:
-        raise HTTPException(status_code=404, detail="Username or password incorrect")
+        raise HTTPException(status_code=401, detail="Username or password incorrect")
 
     if verify_password(password, exists.password_hash) is False:
-        raise HTTPException(status_code=404, detail="Username or password incorrect")
+        raise HTTPException(status_code=401, detail="Username or password incorrect")
 
     try:
         return exists.username

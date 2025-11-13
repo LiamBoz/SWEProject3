@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 import { useCreateUser, useLoginUser } from "../hooks/users.ts";
 // @ts-ignore: missing module declaration
@@ -48,12 +49,50 @@ export function LoginInput() {
 
   function handleLogin(user: UserInput){
    // setIsAuthenticated(true);
-    loginMutate(user);
-    navigate('/homepage');
+    loginMutate(user, {
+      onSuccess: () => navigate('/homepage'),
+      onError: (error: any) => {
+        console.log(error);
+        toast.error("Invalid username or password");
+    },
+    });
+  }
+
+  function handleCreate(user: UserInput){
+    createMutate(user, {
+      onSuccess: () => handleLogin(user),
+      onError: (error) => {
+        console.error("Failed to create user:", error);
+        toast.error("Could not create account — please choose a new username");
+    }
+    });
   }
 
   function login(){
     //saving login input to state variables username and password
+    setUsername(usernameInput);
+    setPassword(passwordInput);
+    
+    //If login is clicked, error messages can be shown
+    setLoginActivated(true);
+
+    if (usernameInput && passwordInput){
+      const user: UserInput = {
+        username: usernameInput,
+        password: passwordInput
+      };
+      handleLogin(user);
+    } else {
+      toast.error("Error! Please enter your username and password.");
+    }
+
+    //clears input from search bars
+    setPasswordInput('');
+    setUsernameInput('');
+  }
+
+  function createUserAccount() {
+    //saving input to state variables username and password
     setUsername(usernameInput);
     setPassword(passwordInput);
 
@@ -82,7 +121,9 @@ export function LoginInput() {
         username: usernameInput,
         password: passwordInput
       };
-      handleLogin(user);
+      handleCreate(user);
+    } else {
+      toast.error("Error! Your username or password does not meet the requirements. Please try again!")
     }
 
     //clears input from search bars
@@ -129,14 +170,14 @@ export function LoginInput() {
            {/*Login button*/}
         {!createAccount ? 
         <button 
-          type="submit"
+          // type="submit"
           onClick={login}
           className="login-btn">
             Login
         </button> : 
         <button 
-          type="submit"
-          onClick={login}
+          // type="submit"
+          onClick={createUserAccount}
           className="login-btn">
             Create Account
         </button>
@@ -157,34 +198,7 @@ export function LoginInput() {
           <p>
             Password must be 8 characters long, must include at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special symbol.
           </p>}
-
-          {/* {showUsername && username && password &&
-          <p>
-            My username is {username}
-          </p>
-          } */}
-
-          {/* {showUsername && username && password &&
-          <p>
-            My password is {password}  
-          </p>} */}
-
-          {(!showUsername) && username && password &&
-            <p>
-            Error! Your username or password does not meet the requirements. Please try again!
-            </p>}
-            {(!username) && loginActivated &&
-            <p>
-              Error! Please enter your username.
-            </p>
-            }
-
-            {(!password) && loginActivated &&
-            <p>
-              Error! Please enter your password.
-            </p>
-            }
-            </>
+          </>
 }
     </div>  
   );

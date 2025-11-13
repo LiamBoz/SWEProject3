@@ -13,3 +13,7 @@ def get_recipes(db: Annotated[Any, Depends(get_db)]):
 @router.post("/")
 def post_recipe(payload: RecipeCreate, db: Annotated[Any, Depends(get_db)]):
     return create_recipe(db, payload)
+
+@router.get("/{recipe_id}", response_model=RecipeResponse)
+def get_recipe_by_id(db: Annotated[Any, Depends(get_db)], recipe_id: int):
+    return get_recipe(db, recipe_id)

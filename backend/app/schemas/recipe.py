@@ -19,3 +19,14 @@ class RecipeCreate(BaseModel):
     ingredients: str
     directions: str
     # nutrition: str | None = None
+
+class RecipeResponse(Recipes):
+    prep_time: str
+    cook_time: str
+    servings: int
+    ingredients: str
+    directions: str
+    nutrition: str
+
+    class Config:
+        from_attributes = True
