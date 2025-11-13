@@ -72,34 +72,9 @@ export function LoginInput() {
     //saving login input to state variables username and password
     setUsername(usernameInput);
     setPassword(passwordInput);
-
-    // //username can only contain letters upper or lowercase
-    // const validUsernameChars =  /^[A-Za-z]+$/;
-    // let validUsername = false;
-    // /*
-    //   Password must meet following requirements:
-    //     Must be 8 characters long
-    //     Must include at least one of each:
-    //       Uppercase letter
-    //       Lowercase letter
-    //       Number
-    //       Special symbol
-    // */
-    // const validPasswordRule = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()\-+={}[\]:;"'<>,.?/\\|~`]).{8,}$/;
-
-    // {validUsernameChars.test(usernameInput) && validPasswordRule.test(passwordInput) ? setShowUsername(true) : setShowUsername(false)}
-    // {validUsernameChars.test(usernameInput) && validPasswordRule.test(passwordInput) ? validUsername = true : validUsername = false}
     
     //If login is clicked, error messages can be shown
     setLoginActivated(true);
-
-    // if (validUsername && usernameInput && passwordInput){
-    //   const user: UserInput = {
-    //     username: usernameInput,
-    //     password: passwordInput
-    //   };
-    //   handleLogin(user);
-    // }
 
     if (usernameInput && passwordInput){
       const user: UserInput = {
@@ -107,6 +82,8 @@ export function LoginInput() {
         password: passwordInput
       };
       handleLogin(user);
+    } else {
+      toast.error("Error! Please enter your username and password.");
     }
 
     //clears input from search bars
@@ -145,6 +122,8 @@ export function LoginInput() {
         password: passwordInput
       };
       handleCreate(user);
+    } else {
+      toast.error("Error! Your username or password does not meet the requirements. Please try again!")
     }
 
     //clears input from search bars
@@ -219,34 +198,7 @@ export function LoginInput() {
           <p>
             Password must be 8 characters long, must include at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special symbol.
           </p>}
-
-          {/* {showUsername && username && password &&
-          <p>
-            My username is {username}
-          </p>
-          } */}
-
-          {/* {showUsername && username && password &&
-          <p>
-            My password is {password}  
-          </p>} */}
-
-          {/* {(!showUsername) && username && password &&
-            <p>
-            Error! Your username or password does not meet the requirements. Please try again!
-            </p>} */}
-            {(!username) && loginActivated &&
-            <p>
-              Error! Please enter your username.
-            </p>
-            }
-
-            {(!password) && loginActivated &&
-            <p>
-              Error! Please enter your password.
-            </p>
-            }
-            </>
+          </>
 }
     </div>  
   );
