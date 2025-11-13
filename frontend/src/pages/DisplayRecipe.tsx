@@ -1,8 +1,10 @@
 // @ts-ignore: missing module declaration
-import "./LoginInput.css";
+import "./DisplayRecipe.css";
 import { useRecipe } from "../hooks/useRecipes.ts";
 import type { RecipeResponse } from "../services/recipes.ts";
 import { useParams } from "react-router-dom";
+import { HeartIcon } from "../components/ui/icons/heroicons-heart"
+import { useState } from "react";
 
 
 export function DisplayRecipeHook(){
@@ -34,6 +36,10 @@ export function DisplayRecipeHook(){
 }
 
 function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
+  let [favorite, setFavorite] =  useState(false);
+  function toggleFavorite(){
+    setFavorite(!favorite);
+  }
   /*
   recipe_name
   total_time
@@ -85,15 +91,26 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
  
   return (
     <div>
-
+      {/* Title */}
+      <>
       <h2>{recipe.recipe_name}</h2>
+      <HeartIcon size={30} onClick={toggleFavorite} favorite={favorite}/>
+      </>
+      {/* Image */}
+      {recipe.img_src != "NaN" && 
+      <img src={recipe.img_src} alt={recipe.recipe_name} />
+      }
 
-
+      {/* Overview */}
       {recipe.overview != "NaN" &&
-      <p>Overview: {parseCSV(recipe.overview)}</p>
+      <>
+      <p className="title">Overview:</p>
+      <p style={{whiteSpace: "pre-line"}}>{parseCSV(recipe.overview)}</p>
+      </>
       }
 
       {recipe.total_time != "NaN" && 
+      recipe.overview == "NaN" &&
       <p>Total Time: {recipe.total_time}</p>
       }
       {recipe.prep_time != "NaN" && 
@@ -111,16 +128,20 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
       <p>Rating: {recipe.rating} / 5</p>
       }
 
-      {recipe.nutrition != "NaN" && <p>Nutrition: {parseCSV(recipe.nutrition)}</p>}
-
-      {recipe.img_src != "NaN" && 
-      <img src={recipe.img_src} alt={recipe.recipe_name} />
+      {recipe.nutrition != "NaN" && 
+      <>
+      <p className="title">Nutrition:</p> 
+      <p style={{whiteSpace: "pre-line"}}>{parseCSV(recipe.nutrition)}</p>
+      </>
       }
 
-    <p>Ingredients: {recipe.ingredients}</p>
-
-    <p>Directions: {parseDirections(recipe.directions)[0]}</p>
+    <p className="title">Ingredients:</p>
+    <p>{recipe.ingredients}</p>
+    <p className="title">Directions:</p>
+    <p style={{whiteSpace: "pre-line"}}>{parseDirections(recipe.directions)[0]}</p>
+    {parseDirections(recipe.directions)[1] &&
     <p>Author: {parseDirections(recipe.directions)[1]}</p>
+    }
     </div>
   );
 }
