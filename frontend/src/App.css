@@ -178,6 +178,7 @@ body::-webkit-scrollbar {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   text-align: left; /* fix x-axis alignment */
   padding-bottom: 10px;
+  cursor: pointer;
 }
 
 .recipe-card:hover {
