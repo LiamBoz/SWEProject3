@@ -2,6 +2,7 @@ import {BrowserRouter as Router, Routes, Route, Navigate } from "react-router-do
 import { LoginInput } from "./pages/LoginInput.tsx";
 import { Homepage } from "./pages/Homepage.tsx";
 import { DisplayRecipe } from "./pages/DisplayRecipe.tsx";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             recipeIngredients={"- Ingredient 1\n- Ingredient 2"}
           />} />
         </Routes> 
+        <Toaster position="top-center" reverseOrder={false} />
       </Router>
   );
 }
