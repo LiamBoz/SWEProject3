@@ -1,14 +1,39 @@
 // @ts-ignore: missing module declaration
 import "./LoginInput.css";
+import { useRecipe } from "../hooks/useRecipes.ts";
+import { RecipeResponse } from "../services/recipes.ts";
+import { useParams } from "react-router-dom";
+
 
 export function DisplayRecipeHook(){
   //call hook
   //call DisplayRecipe with recipe data
+  const { id } = useParams< {id: string} >();
 
+  const recipeId = Number(id);
+
+  const {
+    data: recipe,
+    isLoading,
+    isError,
+    error,
+  } = useRecipe(recipeId);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error: {(error as Error).message}</div>;
+  }
+
+  return (
+    DisplayRecipe({ recipe })
+);
 
 }
 
-export function DisplayRecipe({ recipe } : { recipe: any }){
+function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
   /*
   recipe_name
   total_time
