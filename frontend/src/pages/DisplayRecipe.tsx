@@ -48,21 +48,30 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
   overview - with additional time, csv
   */
 
-  function parseDirections(directions: any){
+  function parseDirections(directions: string){
     let directions_str = "";
-    for(const key in directions){
-      if(key == '.'){
-        directions_str += key + "\n";
+    let last_period = 0;
+    for(let i = 0; i < directions.length; i++){
+      if(directions[i] == '.'){
+        last_period = i;
+        directions_str += directions[i];
       }else{
-        directions_str += key;
+        directions_str += directions[i];
       }
-      }
-      return directions_str;
     }
 
-    function parseCSV(csv: any){
+    let author = directions_str.slice(last_period+1);
+    directions_str = directions_str.slice(0, last_period+1);
+    
+
+    // directions_str = directions;
+  
+      return [directions_str, author]
+    }
+
+    function parseCSV(csv: string){
       let paragraph = "";
-      for(const item in csv){
+      for(const item of csv){
         if(item == ','){
           paragraph += "\n";
         }else{
@@ -79,6 +88,7 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
 
       <h2>{recipe.recipe_name}</h2>
 
+
       {recipe.overview != "NaN" &&
       <p>Overview: {parseCSV(recipe.overview)}</p>
       }
@@ -93,11 +103,11 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
       <p>Cook Time: {recipe.cook_time}</p>
       }
 
-       {recipe.servings != "NaN" && 
+       {recipe.servings && 
       <p>Servings: {recipe.servings}</p>
       }
 
-      {recipe.rating != "NaN" && 
+      {recipe.rating && 
       <p>Rating: {recipe.rating} / 5</p>
       }
 
@@ -109,7 +119,8 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
 
     <p>Ingredients: {recipe.ingredients}</p>
 
-    <p>Directions: {parseDirections(recipe.directions)}</p>
+    <p>Directions: {parseDirections(recipe.directions)[0]}</p>
+    <p>Author: {parseDirections(recipe.directions)[1]}</p>
     </div>
   );
 }

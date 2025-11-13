@@ -97,7 +97,7 @@ export function Homepage(){
 
             <div className="recipe-container">
               {recipes.map((recipe, index) => (
-                <div key={index} className="recipe-card" onClick={() => navigate(`/recipes/${recipe.id}`)}>
+                <div key={index} className="recipe-card" onClick={() => navigate(`/recipe/${recipe.id}`)}>
                   <img
                     src={recipe.img_src}
                     alt={recipe.recipe_name}
