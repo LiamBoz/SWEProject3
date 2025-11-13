@@ -1,13 +1,55 @@
 @import url('https://fonts.googleapis.com/css2?family=Calistoga&display=swap');
 
-body {
+/* body {
   font-family: "Calistoga", serif;
-  background-color:#fff;
+  background-color:#92CCB4;
   margin: 0;
   padding: 0;
+} */
+
+.display-recipe-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* makes it fill the full screen height */
+  width: 100vw;      /* makes it fill the full screen width */
+  box-sizing: border-box;
+  padding: 20px 40px;
 }
 
-.title {
+
+.category-title {
   font-weight: bold;
   font-size: 24px;
+  flex-direction: column;
+  /* align-items: left; */
+  width: 100vw;
+  text-align: left;
+}
+
+.text {
+  font-size: 15px;
+  flex-direction: column;
+  text-align: left;
+}
+
+.header-favorite {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  /* color: rgb(252, 0, 105); */
+}
+
+.recipe-pic{
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.recipe-pic img{
+  max-width: 400px;
+  border-radius: 10px;
 }
