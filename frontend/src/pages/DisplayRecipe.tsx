@@ -1,7 +1,7 @@
 // @ts-ignore: missing module declaration
 import "./LoginInput.css";
 import { useRecipe } from "../hooks/useRecipes.ts";
-import { RecipeResponse } from "../services/recipes.ts";
+import type { RecipeResponse } from "../services/recipes.ts";
 import { useParams } from "react-router-dom";
 
 

@@ -12,7 +12,7 @@ function App() {
           <Route path="/homepage" element={<Homepage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
           {/* will change routing later */}
-          <Route path="/recipe" element={<DisplayRecipeHook />} />
+          <Route path="/recipe/:id" element={<DisplayRecipeHook />} />
         </Routes> 
         <Toaster position="top-center" reverseOrder={false} />
       </Router>
