@@ -10,8 +10,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginInput />} />
           <Route path="/homepage" element={<Homepage />} />
-          {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
-          {/* will change routing later */}
+          <Route path="*" element={<Navigate to="/" replace />} />
           <Route path="/recipe/:id" element={<DisplayRecipeHook />} />
         </Routes> 
         <Toaster position="top-center" reverseOrder={false} />

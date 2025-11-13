@@ -1,5 +1,7 @@
 // @ts-ignore: missing module declaration
 import "./DisplayRecipe.css";
+// @ts-ignore: missing module declaration
+import "../App.css";
 import { useRecipe } from "../hooks/useRecipes.ts";
 import type { RecipeResponse } from "../services/recipes.ts";
 import { useParams } from "react-router-dom";
@@ -30,7 +32,7 @@ export function DisplayRecipeHook(){
   }
 
   return (
-    DisplayRecipe({ recipe })
+    <DisplayRecipe recipe={recipe}  />
 );
 
 }
@@ -90,58 +92,72 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
   
  
   return (
-    <div>
+    <div className="display-recipe-page">
+      <h1 className="title">Chopify</h1>
       {/* Title */}
-      <>
-      <h2>{recipe.recipe_name}</h2>
+      <div className="header-favorite">
+      <h2 className="header">{recipe.recipe_name}</h2>
       <HeartIcon size={30} onClick={toggleFavorite} favorite={favorite}/>
-      </>
+      </div>
+
       {/* Image */}
       {recipe.img_src != "NaN" && 
+      <div className="recipe-pic">
       <img src={recipe.img_src} alt={recipe.recipe_name} />
+      </div>
+      }
+
+      {/* Author */}
+      {parseDirections(recipe.directions)[1] &&
+        <p>Author: {parseDirections(recipe.directions)[1]}</p>
+        }
+
+      {/* Rating */}
+      {recipe.rating && 
+      <p>Rating: {recipe.rating} / 5</p>
       }
 
       {/* Overview */}
       {recipe.overview != "NaN" &&
       <>
-      <p className="title">Overview:</p>
-      <p style={{whiteSpace: "pre-line"}}>{parseCSV(recipe.overview)}</p>
+      <p className="category-title">Overview:</p>
+      <p className="text" style={{whiteSpace: "pre-line"}}>{parseCSV(recipe.overview)}</p>
       </>
       }
 
       {recipe.total_time != "NaN" && 
       recipe.overview == "NaN" &&
-      <p>Total Time: {recipe.total_time}</p>
+      <>
+        <p className="category-title">Overview:</p>
+        <p>Total Time: {recipe.total_time}</p>
+      </>
+
       }
       {recipe.prep_time != "NaN" && 
+      recipe.overview == "NaN" &&
       <p>Prep Time: {recipe.prep_time}</p>
       }
       {recipe.cook_time != "NaN" && 
+      recipe.overview == "NaN" &&
       <p>Cook Time: {recipe.cook_time}</p>
       }
 
        {recipe.servings && 
+       recipe.overview == "NaN" &&
       <p>Servings: {recipe.servings}</p>
       }
 
-      {recipe.rating && 
-      <p>Rating: {recipe.rating} / 5</p>
-      }
+    <p className="category-title">Ingredients:</p>
+    <p>{recipe.ingredients}</p>
+    <p className="category-title">Directions:</p>
+    <p style={{whiteSpace: "pre-line"}}>{parseDirections(recipe.directions)[0]}</p>
 
-      {recipe.nutrition != "NaN" && 
+     {recipe.nutrition != "NaN" && 
       <>
-      <p className="title">Nutrition:</p> 
+      <p className="category-title">Nutrition:</p> 
       <p style={{whiteSpace: "pre-line"}}>{parseCSV(recipe.nutrition)}</p>
       </>
       }
-
-    <p className="title">Ingredients:</p>
-    <p>{recipe.ingredients}</p>
-    <p className="title">Directions:</p>
-    <p style={{whiteSpace: "pre-line"}}>{parseDirections(recipe.directions)[0]}</p>
-    {parseDirections(recipe.directions)[1] &&
-    <p>Author: {parseDirections(recipe.directions)[1]}</p>
-    }
     </div>
   );
 }
