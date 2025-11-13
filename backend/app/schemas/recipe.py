@@ -27,6 +27,7 @@ class RecipeResponse(Recipes):
     ingredients: str
     directions: str
     nutrition: str
+    overview: str
 
     class Config:
         from_attributes = True

@@ -2,7 +2,7 @@
 import "../App.css";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecipes } from "../hooks/useRecipes.ts";
+import { useRecipes, useRecipe } from "../hooks/useRecipes.ts";
 import { usePostRecipe } from "../hooks/postRecipe.ts";
 import type { RecipeCreate } from "../services/recipes.ts";
 
@@ -97,7 +97,7 @@ export function Homepage(){
 
             <div className="recipe-container">
               {recipes.map((recipe, index) => (
-                <div key={index} className="recipe-card">
+                <div key={index} className="recipe-card" onClick={() => navigate(`/recipes/${recipe.id}`)}>
                   <img
                     src={recipe.img_src}
                     alt={recipe.recipe_name}
@@ -107,9 +107,9 @@ export function Homepage(){
                   <p className="recipe-desc">
                   </p>
                   <a
-                    href={recipe.url}
-                    target="_blank"
-                    rel="noreferrer"
+                    // href={recipe.url}
+                    // target="_blank"
+                    // rel="noreferrer"
                     className="recipe-link"
                   >
                     View Recipe →
