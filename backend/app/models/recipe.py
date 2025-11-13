@@ -7,7 +7,7 @@ class Recipe(Base):
     #todo add nullable (depends on data if any of them are blank or can be in future)
     #make some of the Text be String(length) depending on how long some of the data is
     id = Column(Integer, primary_key=True, index=True)
-    recipe_name = Column(Text) 
+    recipe_name = Column(Text, nullable=False) 
     prep_time = Column(Text)
     cook_time = Column(Text)
     total_time = Column(Text)

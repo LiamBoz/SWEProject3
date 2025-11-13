@@ -11,8 +11,12 @@ export default defineConfig({
     }
   },
   server: {
+    watch:{
+      usePolling: true,
+      interval: 200,
+    },
     // bind to all interfaces so the dev server is reachable from Docker host
-    host: true,
+    host: "0.0.0.0",
     port: 5173,
   },
 })
