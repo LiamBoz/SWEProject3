@@ -38,9 +38,9 @@ async def login_user(db, username: str, password: str):
     except Exception:
         raise HTTPException(status_code=500, detail="Server error")
 
-def add_recipe(db, user_id: int, recipe_id: int):
+def add_recipe(db, username: str, recipe_id: int):
     # Check user exists
-    user = db.query(User).filter(User.id == user_id).first()
+    user = db.query(User).filter(User.username == username).first()
     if not user:
         raise HTTPException(404, "User not found")
     
@@ -59,9 +59,9 @@ def add_recipe(db, user_id: int, recipe_id: int):
     except:
         raise HTTPException(500, "Server error")
 
-def remove_favorite(db, user_id: int, recipe_id: int):
+def remove_favorite(db, username: str, recipe_id: int):
     # Check user exists
-    user = db.query(User).filter(User.id == user_id).first()
+    user = db.query(User).filter(User.username == username).first()
     if not user:
         raise HTTPException(404, "User not found")
     

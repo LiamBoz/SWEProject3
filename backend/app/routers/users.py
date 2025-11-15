@@ -16,12 +16,12 @@ async def login(payload: UserLogin, db: Annotated[Any, Depends(get_db)]):
     username = await login_user(db, payload.username, payload.password)
     return username
 
-@router.post("/{user_id}/favorites/{recipe_id}")
-def add_favorite_recipe(user_id: int, recipe_id: int, db: Annotated[Any, Depends(get_db)]):
-    res = add_recipe(db, user_id, recipe_id)
+@router.post("/{username}/favorites/{recipe_id}")
+def add_favorite_recipe(username: str, recipe_id: int, db: Annotated[Any, Depends(get_db)]):
+    res = add_recipe(db, username, recipe_id)
     return res
 
-@router.delete("/{user_id}/favorites/{recipe_id}")
-def unfavorite_recipe(user_id: int, recipe_id: int, db: Annotated[Any, Depends(get_db)]):
-    res = remove_favorite(db, user_id, recipe_id)
+@router.delete("/{username}/favorites/{recipe_id}")
+def unfavorite_recipe(username: str, recipe_id: int, db: Annotated[Any, Depends(get_db)]):
+    res = remove_favorite(db, username, recipe_id)
     return res
