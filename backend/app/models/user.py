@@ -13,7 +13,7 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String(64), nullable=False, index=True) 
+    username = Column(String(64), nullable=False, index=True, unique=True) 
     password_hash = Column(String(64), nullable=False)
 
     favorites = relationship(
