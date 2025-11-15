@@ -6,8 +6,8 @@ import { useRecipe } from "../hooks/useRecipes.ts";
 import type { RecipeResponse } from "../services/recipes.ts";
 import { useParams } from "react-router-dom";
 import { HeartIcon } from "../components/ui/icons/heroicons-heart"
-import { useId, useState } from "react";
-
+import { useId, useState, useEffect } from "react";
+import { useFavoriteRecipe, useUnfavoriteRecipe, useIsFavorited } from "../hooks/users.ts";
 
 export function DisplayRecipeHook(){
   //call hook
@@ -38,24 +38,39 @@ export function DisplayRecipeHook(){
 }
 
 function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
-  let [favorite, setFavorite] =  useState(false);
+  const { data: isFavorite, isLoading, error } = useIsFavorited("Test", recipe.id);
+  let [favorite, setFavorite] =  useState(isFavorite);
 
-  const userID = "5";
-  const recipeID = recipe.id.toString();
+  useEffect(() => {
+    if (isFavorite !== undefined) {
+      setFavorite(isFavorite);
+    }
+  }, [isFavorite]);
 
-  function toggleFavorite(userID: string, recipeID: string){
+  const username = "Test";
+  const recipeID = recipe.id;
+
+  const { mutate: favoriteMutate } = useFavoriteRecipe();
+  const { mutate: unfavoriteMutate } = useUnfavoriteRecipe();
+
+  function toggleFavorite(username: string, recipeId: number){
     setFavorite(!favorite);
-    //state doesn't update immediately, so pass in the opposite value
-    setFavoriteState(!favorite, userID, recipeID);
-  }
-
-  function setFavoriteState(favorite: boolean, userID: string, recipeID: string){
-    if(favorite){
-      //add recipe to favorites table -> call hook
-      console.log(recipeID, userID);
+    if(!favorite){
+      //make it a favorite
+      favoriteMutate(
+        { username, recipeId },
+        {
+          onError: () => setFavorite(favorite), // rollback
+        }
+      );
     }else{
-      //remove recipe from favorites table -> call hook
-     console.log("removed!");
+      //remove
+      unfavoriteMutate(
+        { username, recipeId },
+        {
+          onError: () => setFavorite(favorite), // rollback
+        }
+      );
     }
   }
   /*
@@ -113,7 +128,7 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
       {/* Title */}
       <div className="header-favorite">
       <h2 className="header">{recipe.recipe_name}</h2>
-      <HeartIcon size={30} onClick={() => toggleFavorite(userID, recipeID)} favorite={favorite}/>
+      <HeartIcon size={30} onClick={() => toggleFavorite(username, recipeID)} favorite={favorite}/>
       </div>
 
       {/* Image */}

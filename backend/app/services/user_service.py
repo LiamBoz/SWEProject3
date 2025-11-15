@@ -79,3 +79,19 @@ def remove_favorite(db, username: str, recipe_id: int):
         return {"message": "Recipe successfully removed from favorites"}
     except:
         raise HTTPException(500, "Server error")
+    
+def user_favorites_recipe(db, username: str, recipe_id: int):
+    # Check user exists
+    user = db.query(User).filter(User.username == username).first()
+    if not user:
+        raise HTTPException(404, "User not found")
+    
+    # Check recipe exists
+    recipe = db.query(Recipe).filter(Recipe.id == recipe_id).first()
+    if not recipe:
+        raise HTTPException(404, "Recipe not found")
+    
+    if recipe in user.favorites:
+        return True
+    else:
+        return False

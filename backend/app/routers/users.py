@@ -25,3 +25,7 @@ def add_favorite_recipe(username: str, recipe_id: int, db: Annotated[Any, Depend
 def unfavorite_recipe(username: str, recipe_id: int, db: Annotated[Any, Depends(get_db)]):
     res = remove_favorite(db, username, recipe_id)
     return res
+
+@router.get("/{username}/favorites/{recipe_id}")
+def is_favorited(username: str, recipe_id: int, db: Annotated[Any, Depends(get_db)]):
+    return user_favorites_recipe(db, username, recipe_id)

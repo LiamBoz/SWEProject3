@@ -32,3 +32,8 @@ export async function unfavoriteRecipe(username: string, recipe_id: number): Pro
     const res = await http.delete(`/users/${username}/favorites/${recipe_id}`);
     return res.data as FavoriteResponse;
 }
+
+export async function isFavorited(username: string, recipe_id: number): Promise<Boolean> {
+    const res = await http.get(`/users/${username}/favorites/${recipe_id}`);
+    return res.data as Boolean;
+}
