@@ -10,7 +10,7 @@ export function Homepage(){
   const [activeTab, setActiveTab] = useState("all");
 
   const { data: recipes = [], isLoading, error } = useRecipes();
-  console.log(recipes)
+  //console.log(recipes)
   const navigate = useNavigate();
   const { mutate } = usePostRecipe();
 
