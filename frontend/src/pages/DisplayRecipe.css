@@ -26,10 +26,11 @@
   text-align: left;
 }
 
-.text {
+.recipe-info {
   font-size: 15px;
   flex-direction: column;
   text-align: left;
+  font-weight: normal;;
 }
 
 .header-favorite {

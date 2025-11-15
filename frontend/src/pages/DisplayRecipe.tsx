@@ -6,8 +6,8 @@ import { useRecipe } from "../hooks/useRecipes.ts";
 import type { RecipeResponse } from "../services/recipes.ts";
 import { useParams } from "react-router-dom";
 import { HeartIcon } from "../components/ui/icons/heroicons-heart"
-import { useState } from "react";
-
+import { useId, useState, useEffect } from "react";
+import { useFavoriteRecipe, useUnfavoriteRecipe, useIsFavorited } from "../hooks/users.ts";
 
 export function DisplayRecipeHook(){
   //call hook
@@ -38,9 +38,40 @@ export function DisplayRecipeHook(){
 }
 
 function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
-  let [favorite, setFavorite] =  useState(false);
-  function toggleFavorite(){
+  const { data: isFavorite, isLoading, error } = useIsFavorited("Test", recipe.id);
+  let [favorite, setFavorite] =  useState(isFavorite);
+
+  useEffect(() => {
+    if (isFavorite !== undefined) {
+      setFavorite(isFavorite);
+    }
+  }, [isFavorite]);
+
+  const username = "Test";
+  const recipeID = recipe.id;
+
+  const { mutate: favoriteMutate } = useFavoriteRecipe();
+  const { mutate: unfavoriteMutate } = useUnfavoriteRecipe();
+
+  function toggleFavorite(username: string, recipeId: number){
     setFavorite(!favorite);
+    if(!favorite){
+      //make it a favorite
+      favoriteMutate(
+        { username, recipeId },
+        {
+          onError: () => setFavorite(favorite), // rollback
+        }
+      );
+    }else{
+      //remove
+      unfavoriteMutate(
+        { username, recipeId },
+        {
+          onError: () => setFavorite(favorite), // rollback
+        }
+      );
+    }
   }
   /*
   recipe_name
@@ -97,7 +128,7 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
       {/* Title */}
       <div className="header-favorite">
       <h2 className="header">{recipe.recipe_name}</h2>
-      <HeartIcon size={30} onClick={toggleFavorite} favorite={favorite}/>
+      <HeartIcon size={30} onClick={() => toggleFavorite(username, recipeID)} favorite={favorite}/>
       </div>
 
       {/* Image */}
@@ -109,19 +140,19 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
 
       {/* Author */}
       {parseDirections(recipe.directions)[1] &&
-        <p>Author: {parseDirections(recipe.directions)[1]}</p>
+        <p className="recipe-info">Author: {parseDirections(recipe.directions)[1]}</p>
         }
 
       {/* Rating */}
       {recipe.rating && 
-      <p>Rating: {recipe.rating} / 5</p>
+      <p className="recipe-info">Rating: {recipe.rating} / 5</p>
       }
 
       {/* Overview */}
       {recipe.overview != "NaN" &&
       <>
       <p className="category-title">Overview:</p>
-      <p className="text" style={{whiteSpace: "pre-line"}}>{parseCSV(recipe.overview)}</p>
+      <p  className="recipe-info" style={{whiteSpace: "pre-line"}}>{parseCSV(recipe.overview)}</p>
       </>
       }
 
@@ -129,33 +160,33 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
       recipe.overview == "NaN" &&
       <>
         <p className="category-title">Overview:</p>
-        <p>Total Time: {recipe.total_time}</p>
+        <p className="recipe-info">Total Time: {recipe.total_time}</p>
       </>
 
       }
       {recipe.prep_time != "NaN" && 
       recipe.overview == "NaN" &&
-      <p>Prep Time: {recipe.prep_time}</p>
+      <p className="recipe-info">Prep Time: {recipe.prep_time}</p>
       }
       {recipe.cook_time != "NaN" && 
       recipe.overview == "NaN" &&
-      <p>Cook Time: {recipe.cook_time}</p>
+      <p className="recipe-info">Cook Time: {recipe.cook_time}</p>
       }
 
        {recipe.servings && 
        recipe.overview == "NaN" &&
-      <p>Servings: {recipe.servings}</p>
+      <p className="recipe-info">Servings: {recipe.servings}</p>
       }
 
     <p className="category-title">Ingredients:</p>
-    <p>{recipe.ingredients}</p>
+    <p className="recipe-info">{recipe.ingredients}</p>
     <p className="category-title">Directions:</p>
-    <p style={{whiteSpace: "pre-line"}}>{parseDirections(recipe.directions)[0]}</p>
+    <p className="recipe-info" style={{whiteSpace: "pre-line"}}>{parseDirections(recipe.directions)[0]}</p>
 
      {recipe.nutrition != "NaN" && 
       <>
       <p className="category-title">Nutrition:</p> 
-      <p style={{whiteSpace: "pre-line"}}>{parseCSV(recipe.nutrition)}</p>
+      <p className="recipe-info" style={{whiteSpace: "pre-line"}}>{parseCSV(recipe.nutrition)}</p>
       </>
       }
     </div>

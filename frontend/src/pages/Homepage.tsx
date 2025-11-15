@@ -10,7 +10,7 @@ export function Homepage(){
   const [activeTab, setActiveTab] = useState("all");
 
   const { data: recipes = [], isLoading, error } = useRecipes();
-  console.log(recipes)
+  //console.log(recipes)
   const navigate = useNavigate();
   const { mutate } = usePostRecipe();
 
@@ -127,31 +127,36 @@ export function Homepage(){
             <input 
               type="text"
               name="recipe_name"
+              className="placeholder-txt"
               value={newRecipe.recipe_name}
               onChange={handleInputChange}
               placeholder="e.g. Spaghetti Carbonara" 
             />
 
-            <label>Description</label>
-            <textarea placeholder="Brief description of your recipe"></textarea>
+            {/* ingredients (csv), directions - end with a period, prep time, cook time, servings */}
+
+            {/* <label>Description</label>
+            <textarea className="placeholder-txt" placeholder="Brief description of your recipe"></textarea> */}
 
             <label>Ingredients (comma separated)</label>
-            <textarea placeholder="e.g. pasta, eggs, cheese, pancetta"></textarea>
+            <textarea className="placeholder-txt"  placeholder="e.g. pasta, eggs, cheese, pancetta"></textarea>
 
-            <label>Instructions</label>
-            <textarea placeholder="Step-by-step instructions"></textarea>
+            <label>Directions (Must end with a period)</label>
+            <textarea className="placeholder-txt" placeholder="Step-by-step instructions."></textarea>
 
             <div className="time-inputs">
               <label>Prep Time (min)</label>
               <input type="number" min="0" />
               <label>Cook Time (min)</label>
               <input type="number" min="0" />
+              <label>Total Time (min)</label>
+              <input type="number" min="0" />
               <label>Servings</label>
               <input type="number" min="1" />
             </div>
 
             <label>Image URL (optional)</label>
-            <input type="text" placeholder="https://example.com/recipe.jpg" />
+            <input className="placeholder-txt"  type="text" placeholder="https://example.com/recipe.jpg" />
 
             <button type="submit">Add Recipe</button>
           </form>

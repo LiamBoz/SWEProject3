@@ -66,6 +66,7 @@ body::-webkit-scrollbar {
   border-radius: 10px;
   padding: 8px 12px;
   font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif
 }
 
 .search-btn {
@@ -104,6 +105,11 @@ body::-webkit-scrollbar {
 .tab.all {
   background-color: #87123D; 
 }
+
+.tab.all:hover {
+  background-color: rgb(166, 34, 78);
+}
+
 .tab.all.active {
   background-color: #87123D; 
 }
@@ -111,12 +117,20 @@ body::-webkit-scrollbar {
 .tab.add {
   background-color: #92CCB4; 
 }
+
+.tab.add:hover {
+  background-color: #aad7c4;
+}
+
 .tab.add.active {
   background-color: #92CCB4; 
 }
 
 .tab.favorites {
   background-color: #136E50; 
+}
+.tab.favorites:hover {
+  background-color: #258968;
 }
 .tab.favorites.active {
   background-color: #136E50; 
@@ -194,6 +208,7 @@ body::-webkit-scrollbar {
 
 .recipe-title {
   font-size: 1.1rem;
+  font-weight: lighter;
   color: #007bff;
   margin: 10px;
   height: 48px; /* keeps title height consistent */
@@ -223,11 +238,11 @@ body::-webkit-scrollbar {
 }
 
 .add-recipe-form {
-  background: #87123D;
+  background: rgb(255, 255, 255);
   font-family: "Calistoga", serif;
-  color: black;
+  color: #007bff;
   border-radius: 10px;
-  padding: 20px;
+  padding: 30px 50px 30px 30px;
   max-width: 500px;
   margin: 20px auto;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -241,9 +256,11 @@ body::-webkit-scrollbar {
   border: 1px solid #ccc;
   border-radius: 8px;
 }
-
+.placeholder-txt{
+  font-family: Arial, Helvetica, sans-serif;
+}
 .add-recipe-form button {
-  background-color: #136E50;
+  background-color: #258968;
   font-family: "Calistoga", serif;
   color: black;
   border: none;
@@ -254,5 +271,5 @@ body::-webkit-scrollbar {
 }
 
 .add-recipe-form button:hover {
-  background-color: #258968;
+  background-color: #19926a;
 }

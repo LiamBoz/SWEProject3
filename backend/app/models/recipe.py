@@ -1,5 +1,7 @@
-from sqlalchemy import Column, Integer, String, Text, ForeignKey, Float
+from sqlalchemy import Column, Integer, Text, Float
+from sqlalchemy.orm import relationship
 from app.db.base import Base
+from app.models.user import user_recipes_favorites
 
 class Recipe(Base):
     __tablename__ = "recipes"
@@ -20,6 +22,12 @@ class Recipe(Base):
     nutrition = Column(Text)
     overview = Column(Text)
     img_src = Column(Text)
+
+    favorited_by = relationship(
+        "User",
+        secondary=user_recipes_favorites,
+        back_populates="favorites"
+    )
 
 
 

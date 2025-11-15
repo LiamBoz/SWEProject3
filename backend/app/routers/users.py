@@ -15,3 +15,17 @@ async def register(payload: UserCreate, db: Annotated[Any, Depends(get_db)]):
 async def login(payload: UserLogin, db: Annotated[Any, Depends(get_db)]):
     username = await login_user(db, payload.username, payload.password)
     return username
+
+@router.post("/{username}/favorites/{recipe_id}")
+def add_favorite_recipe(username: str, recipe_id: int, db: Annotated[Any, Depends(get_db)]):
+    res = add_recipe(db, username, recipe_id)
+    return res
+
+@router.delete("/{username}/favorites/{recipe_id}")
+def unfavorite_recipe(username: str, recipe_id: int, db: Annotated[Any, Depends(get_db)]):
+    res = remove_favorite(db, username, recipe_id)
+    return res
+
+@router.get("/{username}/favorites/{recipe_id}")
+def is_favorited(username: str, recipe_id: int, db: Annotated[Any, Depends(get_db)]):
+    return user_favorites_recipe(db, username, recipe_id)

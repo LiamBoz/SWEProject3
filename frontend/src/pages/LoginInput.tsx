@@ -97,7 +97,7 @@ export function LoginInput() {
     setPassword(passwordInput);
 
     //username can only contain letters upper or lowercase
-    const validUsernameChars =  /^[A-Za-z]+$/;
+    const validUsernameChars =  /^[A-Za-z0-9]+$/;
     let validUsername = false;
     /*
       Password must meet following requirements:
