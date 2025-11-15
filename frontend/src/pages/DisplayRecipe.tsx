@@ -164,7 +164,7 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
       }
 
     <p className="category-title">Ingredients:</p>
-    <p>{recipe.ingredients}</p>
+    <p className="recipe-info">{recipe.ingredients}</p>
     <p className="category-title">Directions:</p>
     <p className="recipe-info" style={{whiteSpace: "pre-line"}}>{parseDirections(recipe.directions)[0]}</p>
 
