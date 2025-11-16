@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecipes, useRecipe } from "../hooks/useRecipes.ts";
 import { usePostRecipe } from "../hooks/postRecipe.ts";
 import type { RecipeCreate } from "../services/recipes.ts";
+import { clearAuth } from "../Auth.ts"
 
 export function Homepage(){
   const [activeTab, setActiveTab] = useState("all");
@@ -26,6 +27,7 @@ export function Homepage(){
 
   function handleLogout(){
     //isAuthenticated must be set to false here
+	clearAuth();
     navigate('/');
   }
 

@@ -1,11 +1,15 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createUser, loginUser, favoriteRecipe, unfavoriteRecipe, isFavorited } from "../services/users";
 import type { FavoriteResponse } from "../services/users";
+import { saveAuth } from "../Auth.ts"
 
 export function useCreateUser() {
     return useMutation({
         mutationKey: ["userCreate"],
         mutationFn: createUser,
+		onSuccess: (data: { username: string; token: string }) => {
+		  saveAuth(data.username, data.token);
+		},
     });
 }
 
@@ -13,6 +17,9 @@ export function useLoginUser() {
     return useMutation({
         mutationKey: ["userLogin"],
         mutationFn: loginUser,
+		onSuccess: (data: { username: string; token: string }) => {
+		  saveAuth(data.username, data.token);
+		},
     });
 }
 
