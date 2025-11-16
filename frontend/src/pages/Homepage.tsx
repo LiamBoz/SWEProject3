@@ -1,17 +1,32 @@
 // @ts-ignore: missing module declaration for plain CSS imports
 import "../App.css";
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecipes, useRecipe } from "../hooks/useRecipes.ts";
 import { usePostRecipe } from "../hooks/postRecipe.ts";
 import type { RecipeCreate } from "../services/recipes.ts";
 import { clearAuth } from "../Auth.ts"
 import { LogoutButton } from "../components/LogoutButton";
+import Fuse from 'fuse.js';
 
 export function Homepage(){
   const [activeTab, setActiveTab] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const { data: recipes = [], isLoading, error } = useRecipes();
+
+  const fuse = useMemo(
+    () =>
+      new Fuse(recipes, {
+        keys: ["recipe_name"],
+        threshold: 0.2,
+      }),
+    [recipes]
+  );
+  const filteredRecipes = searchQuery.trim()
+    ? fuse.search(searchQuery).map((result) => result.item)
+    : recipes;
+
   //console.log(recipes)
   const navigate = useNavigate();
   const { mutate } = usePostRecipe();
@@ -94,12 +109,13 @@ export function Homepage(){
                 type="text"
                 placeholder="Search recipes..."
                 className="search-input"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <button className="search-btn">Search</button>
             </div>
 
             <div className="recipe-container">
-              {recipes.map((recipe, index) => (
+              {filteredRecipes.map((recipe, index) => (
                 <div key={index} className="recipe-card" onClick={() => navigate(`/recipe/${recipe.id}`)}>
                   <img
                     src={recipe.img_src}
