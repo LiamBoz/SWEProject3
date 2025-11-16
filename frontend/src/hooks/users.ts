@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createUser, loginUser, favoriteRecipe, unfavoriteRecipe, isFavorited } from "../services/users";
 import type { FavoriteResponse } from "../services/users";
-import { saveAuth } from "../auth.ts"
+import { saveAuth } from "../Auth.ts"
 
 export function useCreateUser() {
     return useMutation({
