@@ -9,12 +9,28 @@ import { clearAuth } from "../Auth.ts"
 import { LogoutButton } from "../components/LogoutButton";
 import Fuse from 'fuse.js';
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export function Homepage(){
   const [activeTab, setActiveTab] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
+  const [minRating, setMinRating] = useState<string>("any");
+  const [maxTime, setMaxTime] = useState<string>("any");
+
   const { data: recipes = [], isLoading, error } = useRecipes();
+
+  const getTotalMinutes = (timeStr?: string): number | undefined => {
+    if (!timeStr) return undefined;
+    const match = timeStr.match(/(\d+)\s*mins?/i);
+    return match ? parseInt(match[1], 10) : undefined;
+  };
 
   const fuse = useMemo(
     () =>
@@ -24,9 +40,28 @@ export function Homepage(){
       }),
     [recipes]
   );
-  const filteredRecipes = searchQuery.trim()
-    ? fuse.search(searchQuery).map((result) => result.item)
-    : recipes;
+
+  const filteredRecipes = useMemo(() => {
+    const base = searchQuery.trim()
+      ? fuse.search(searchQuery).map((result) => result.item)
+      : recipes;
+
+    return base.filter((recipe: any) => {
+      if (minRating !== "any") {
+        const min = parseFloat(minRating);
+        const rating = typeof recipe.rating === "number" ? recipe.rating : 0;
+        if (rating < min) return false;
+      }
+
+      if (maxTime !== "any") {
+        const max = parseInt(maxTime, 10);
+        const minutes = getTotalMinutes(recipe.total_time);
+        if (minutes != null && minutes > max) return false;
+      }
+
+      return true;
+    });
+  }, [recipes, fuse, searchQuery, minRating, maxTime]);
 
   //console.log(recipes)
   const navigate = useNavigate();
@@ -105,15 +140,45 @@ export function Homepage(){
       <div className={`content ${activeTab}`}>
         {activeTab === "all" && (
           <>
-            <div className="search-section">
+		<div className="search-section flex items-center w-full justify-center gap-1 relative bottom-2.5">
               <Input
                 type="text"
                 placeholder="Search recipes..."
-                className="search-input"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-				className="bg-white text-black w-[600px]"
+                className="search-input bg-white text-black w-[600px]"
               />
+
+		      <div className="flex gap-4 flex-wrap absolute right-20">
+                <div className="flex flex-col gap-1">
+                  <Select value={minRating} onValueChange={setMinRating}>
+                    <SelectTrigger className="w-[140px] bg-white">
+                      <SelectValue placeholder="Any rating" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="any">Any Rating</SelectItem>
+                      <SelectItem value="4.0">4.0+</SelectItem>
+                      <SelectItem value="4.5">4.5+</SelectItem>
+                      <SelectItem value="4.75">4.75+</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <Select value={maxTime} onValueChange={setMaxTime}>
+                    <SelectTrigger className="w-[160px] bg-white">
+                      <SelectValue placeholder="Any time" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="any">Any Time</SelectItem>
+                      <SelectItem value="15">≤ 15 mins</SelectItem>
+                      <SelectItem value="30">≤ 30 mins</SelectItem>
+                      <SelectItem value="45">≤ 45 mins</SelectItem>
+                      <SelectItem value="60">≤ 60 mins</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
             </div>
 
             <div className="recipe-container">
