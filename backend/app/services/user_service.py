@@ -3,6 +3,7 @@ from app.models.recipe import Recipe
 from sqlalchemy import select
 from fastapi import HTTPException
 from pwdlib import PasswordHash
+import secrets
 
 hasher = PasswordHash.recommended()
 
@@ -11,6 +12,9 @@ def get_password_hash(password):
 
 def verify_password(plain_password, hashed_password):
    return hasher.verify(plain_password, hashed_password)
+
+def create_token() -> str:
+    return secrets.token_urlsafe(32)
 
 async def create_user(db, username: str, password: str):
     exists = db.execute(select(User).where(User.username == username)).scalar_one_or_none()
@@ -21,7 +25,8 @@ async def create_user(db, username: str, password: str):
     db.add(user)
     try:
         db.commit()
-        return user.username
+        token = create_token()
+        return {"username": user.username, "token": token}
     except Exception:
         raise HTTPException(status_code=500, detail="Server error")
 
@@ -34,9 +39,11 @@ async def login_user(db, username: str, password: str):
         raise HTTPException(status_code=401, detail="Username or password incorrect")
 
     try:
-        return exists.username
+        token = create_token()
+        return {"username": exists.username, "token": token}
     except Exception:
         raise HTTPException(status_code=500, detail="Server error")
+
 
 def add_recipe(db, username: str, recipe_id: int):
     # Check user exists

@@ -13,3 +13,10 @@ class UserLogin(BaseModel):
 class UserResponse(BaseModel):
     username: str
 
+class RegisterResponse(BaseModel):
+    username: str
+    token: str
+
+class LoginResponse(BaseModel):
+    username: str
+    token: str
