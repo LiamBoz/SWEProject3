@@ -6,6 +6,7 @@ import { useRecipes, useRecipe } from "../hooks/useRecipes.ts";
 import { usePostRecipe } from "../hooks/postRecipe.ts";
 import type { RecipeCreate } from "../services/recipes.ts";
 import { clearAuth } from "../Auth.ts"
+import { LogoutButton } from "../components/LogoutButton";
 
 export function Homepage(){
   const [activeTab, setActiveTab] = useState("all");
@@ -59,7 +60,7 @@ export function Homepage(){
       {/* Header */}
       <div className="header">
         <h1 className="title">Chopify</h1>
-        <button className="logout-btn" onClick={handleLogout}>Logout</button>
+		  <LogoutButton />
       </div>
 
       {/* Search */}
