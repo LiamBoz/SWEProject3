@@ -16,6 +16,17 @@
   padding: 20px 40px;
 }
 
+.recipe-name {
+  /* font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: left;
+  color: black; */
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin: 0;
+  color: black;
+}
 
 .category-title {
   font-weight: bold;
