@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { Input } from "@/components/ui/input";
 
 import { useCreateUser, useLoginUser } from "../hooks/users.ts";
 // @ts-ignore: missing module declaration
@@ -148,7 +149,7 @@ export function LoginInput() {
         <>
         <div className="login-bar">
            {/*Username bar*/}
-           <input
+           <Input
           type = "text"
           placeholder="Username"
           onChange={saveUsernameText}
@@ -159,7 +160,7 @@ export function LoginInput() {
 
         <div className="login-bar">
            {/*Password bar*/}
-            <input 
+            <Input 
               type="password"
               placeholder="Password"
               onChange={savePasswordText}

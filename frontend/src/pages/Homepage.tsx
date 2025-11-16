@@ -1,16 +1,33 @@
 // @ts-ignore: missing module declaration for plain CSS imports
 import "../App.css";
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecipes, useRecipe } from "../hooks/useRecipes.ts";
 import { usePostRecipe } from "../hooks/postRecipe.ts";
 import type { RecipeCreate } from "../services/recipes.ts";
 import { clearAuth } from "../Auth.ts"
+import { LogoutButton } from "../components/LogoutButton";
+import Fuse from 'fuse.js';
+import { Input } from "@/components/ui/input";
 
 export function Homepage(){
   const [activeTab, setActiveTab] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const { data: recipes = [], isLoading, error } = useRecipes();
+
+  const fuse = useMemo(
+    () =>
+      new Fuse(recipes, {
+        keys: ["recipe_name"],
+        threshold: 0.2,
+      }),
+    [recipes]
+  );
+  const filteredRecipes = searchQuery.trim()
+    ? fuse.search(searchQuery).map((result) => result.item)
+    : recipes;
+
   //console.log(recipes)
   const navigate = useNavigate();
   const { mutate } = usePostRecipe();
@@ -59,7 +76,7 @@ export function Homepage(){
       {/* Header */}
       <div className="header">
         <h1 className="title">Chopify</h1>
-        <button className="logout-btn" onClick={handleLogout}>Logout</button>
+		  <LogoutButton />
       </div>
 
       {/* Search */}
@@ -89,16 +106,18 @@ export function Homepage(){
         {activeTab === "all" && (
           <>
             <div className="search-section">
-              <input
+              <Input
                 type="text"
                 placeholder="Search recipes..."
                 className="search-input"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+				className="bg-white text-black w-[600px]"
               />
-              <button className="search-btn">Search</button>
             </div>
 
             <div className="recipe-container">
-              {recipes.map((recipe, index) => (
+              {filteredRecipes.map((recipe, index) => (
                 <div key={index} className="recipe-card" onClick={() => navigate(`/recipe/${recipe.id}`)}>
                   <img
                     src={recipe.img_src}
@@ -126,7 +145,7 @@ export function Homepage(){
           <h2>Add a Recipe</h2>
           <form onSubmit={handleAddRecipe}>
             <label>Recipe Name</label>
-            <input 
+            <Input 
               type="text"
               name="recipe_name"
               className="placeholder-txt"
@@ -141,24 +160,24 @@ export function Homepage(){
             <textarea className="placeholder-txt" placeholder="Brief description of your recipe"></textarea> */}
 
             <label>Ingredients (comma separated)</label>
-            <textarea className="placeholder-txt"  placeholder="e.g. pasta, eggs, cheese, pancetta"></textarea>
+            <Input className="placeholder-txt"  placeholder="e.g. pasta, eggs, cheese, pancetta"></Input>
 
             <label>Directions (Must end with a period)</label>
-            <textarea className="placeholder-txt" placeholder="Step-by-step instructions."></textarea>
+            <Input className="placeholder-txt" placeholder="Step-by-step instructions."></Input>
 
             <div className="time-inputs">
               <label>Prep Time (min)</label>
-              <input type="number" min="0" />
+              <Input type="number" min="0" />
               <label>Cook Time (min)</label>
-              <input type="number" min="0" />
+              <Input type="number" min="0" />
               <label>Total Time (min)</label>
-              <input type="number" min="0" />
+              <Input type="number" min="0" />
               <label>Servings</label>
-              <input type="number" min="1" />
+              <Input type="number" min="1" />
             </div>
 
             <label>Image URL (optional)</label>
-            <input className="placeholder-txt"  type="text" placeholder="https://example.com/recipe.jpg" />
+            <Input className="placeholder-txt"  type="text" placeholder="https://example.com/recipe.jpg" />
 
             <button type="submit">Add Recipe</button>
           </form>
