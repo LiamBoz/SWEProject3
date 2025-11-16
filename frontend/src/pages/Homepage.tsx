@@ -142,7 +142,7 @@ export function Homepage(){
         )}
         {activeTab === "add" && 
         <div className="add-recipe-form">
-          <h2>Add a Recipe</h2>
+          <h2 className="add-recipe-header">Add a Recipe</h2>
           <form onSubmit={handleAddRecipe}>
             <label>Recipe Name</label>
             <Input 

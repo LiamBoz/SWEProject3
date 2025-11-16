@@ -127,7 +127,7 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
       <h1 className="title">Chopify</h1>
       {/* Title */}
       <div className="header-favorite">
-      <h2 className="header">{recipe.recipe_name}</h2>
+      <h2 className="recipe-name">{recipe.recipe_name}</h2>
       <HeartIcon size={30} onClick={() => toggleFavorite(username, recipeID)} favorite={favorite}/>
       </div>
 
