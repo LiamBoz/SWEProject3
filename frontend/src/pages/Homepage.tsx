@@ -85,7 +85,7 @@ export function Homepage(){
 
   function handleAddRecipe(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();             // STOP default page reload
-    mutate(newRecipe);             // call your mutation
+    mutate(newRecipe);             // call mutation
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -221,24 +221,61 @@ export function Homepage(){
 
             {/* ingredients (csv), directions - end with a period, prep time, cook time, servings */}
 
-            {/* <label>Description</label>
-            <textarea className="placeholder-txt" placeholder="Brief description of your recipe"></textarea> */}
-
             <label>Ingredients (comma separated)</label>
-            <Input className="placeholder-txt"  placeholder="e.g. pasta, eggs, cheese, pancetta"></Input>
+            <Input 
+              type="text"
+              name="ingredients"
+              className="placeholder-txt"
+              value={newRecipe.ingredients}
+              onChange={handleInputChange}  
+              placeholder="e.g. Pasta, Eggs, Black pepper, Parmesan cheese, Bacon">
+              
+            </Input>
 
-            <label>Directions (Must end with a period)</label>
-            <Input className="placeholder-txt" placeholder="Step-by-step instructions."></Input>
+            <label>Directions (Each step must end with a period)</label>
+            <Input 
+              type="text"
+              name="directions"
+              className="placeholder-txt" 
+              value={newRecipe.directions}
+              onChange={handleInputChange}
+              placeholder="e.g. Bring pot of water to a boil. Place pasta in water.">
+              
+            </Input>
 
             <div className="time-inputs">
-              <label>Prep Time (min)</label>
-              <Input type="number" min="0" />
-              <label>Cook Time (min)</label>
-              <Input type="number" min="0" />
-              <label>Total Time (min)</label>
-              <Input type="number" min="0" />
+              <label>Prep Time</label>
+              <Input 
+                type="text"
+                name="prep_time"
+                value={newRecipe.prep_time}
+                onChange={handleInputChange}
+                placeholder="e.g. 30 mins"
+              />
+              <label>Cook Time</label>
+              <Input 
+                type="text"
+                name="cook_time"
+                value={newRecipe.cook_time}
+                onChange={handleInputChange}
+                placeholder="e.g. 45 mins" 
+              />
+              <label>Total Time</label>
+              <Input 
+                type="text"
+                name="total_time"
+                value={newRecipe.total_time}
+                onChange={handleInputChange}
+                placeholder="e.g. 1 hr 15 mins" 
+              />
               <label>Servings</label>
-              <Input type="number" min="1" />
+              <Input 
+                type="number" 
+                min="1" 
+                name="servings"
+                value={newRecipe.servings}
+                onChange={handleInputChange}
+              />
             </div>
 
             <label>Image URL (optional)</label>
