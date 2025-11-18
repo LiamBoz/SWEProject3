@@ -26,11 +26,18 @@ export function Homepage(){
 
   const { data: recipes = [], isLoading, error } = useRecipes();
 
-  const getTotalMinutes = (timeStr?: string): number | undefined => {
-    if (!timeStr) return undefined;
-    const match = timeStr.match(/(\d+)\s*mins?/i);
-    return match ? parseInt(match[1], 10) : undefined;
-  };
+const getTotalMinutes = (timeStr?: string): number | undefined => {
+  if (!timeStr) return undefined;
+
+  const hoursMatch = timeStr.match(/(\d+)\s*(h|hr|hrs|hour|hours)\b/i);
+  const minutesMatch = timeStr.match(/(\d+)\s*(m|min|mins|minute|minutes)\b/i);
+
+  const hours = hoursMatch ? parseInt(hoursMatch[1], 10) : 0;
+  const mins = minutesMatch ? parseInt(minutesMatch[1], 10) : 0;
+  const total = hours * 60 + mins;
+
+  return total > 0 ? total : undefined;
+};
 
   const fuse = useMemo(
     () =>
@@ -56,7 +63,8 @@ export function Homepage(){
       if (maxTime !== "any") {
         const max = parseInt(maxTime, 10);
         const minutes = getTotalMinutes(recipe.total_time);
-        if (minutes != null && minutes > max) return false;
+		if (minutes == null) return false;
+        if (minutes > max) return false;
       }
 
       return true;
