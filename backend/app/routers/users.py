@@ -29,3 +29,7 @@ def unfavorite_recipe(username: str, recipe_id: int, db: Annotated[Any, Depends(
 @router.get("/{username}/favorites/{recipe_id}")
 def is_favorited(username: str, recipe_id: int, db: Annotated[Any, Depends(get_db)]):
     return user_favorites_recipe(db, username, recipe_id)
+
+@router.get("/{username}/favorites")
+def get_favorites(username: str, db: Annotated[Any, Depends(get_db)]):
+    return user_get_favorites(db, username)

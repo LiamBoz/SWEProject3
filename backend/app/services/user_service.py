@@ -1,6 +1,7 @@
 from app.models.user import User
 from app.models.recipe import Recipe
 from sqlalchemy import select
+from sqlalchemy.orm import joinedload
 from fastapi import HTTPException
 from pwdlib import PasswordHash
 import secrets
@@ -62,6 +63,7 @@ def add_recipe(db, username: str, recipe_id: int):
     try:
         user.favorites.append(recipe)
         db.commit()
+        db.refresh(user)
         return {"message": "Recipe added to favorites"}
     except:
         raise HTTPException(500, "Server error")
@@ -102,3 +104,17 @@ def user_favorites_recipe(db, username: str, recipe_id: int):
         return True
     else:
         return False
+
+def user_get_favorites(db, username: str):
+    user = (
+        db.query(User)
+        .options(joinedload(User.favorites))
+        .filter(User.username == username)
+        .first()
+    )
+    if not user:
+        raise HTTPException(404, "User not found")
+    
+    if len(user.favorites) == 0:
+        return "No recipes favorited"
+    return user.favorites
