@@ -8,6 +8,8 @@ import { useParams } from "react-router-dom";
 import { HeartIcon } from "../components/ui/icons/heroicons-heart"
 import { useId, useState, useEffect } from "react";
 import { useFavoriteRecipe, useUnfavoriteRecipe, useIsFavorited } from "../hooks/users.ts";
+import { getAuth } from "../Auth.ts";
+
 
 export function DisplayRecipeHook(){
   //call hook
@@ -38,7 +40,8 @@ export function DisplayRecipeHook(){
 }
 
 function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
-  const { data: isFavorite, isLoading, error } = useIsFavorited("Test", recipe.id);
+  const { username } = getAuth();
+  const { data: isFavorite, isLoading, error } = useIsFavorited(username, recipe.id);
   let [favorite, setFavorite] =  useState(isFavorite);
 
   useEffect(() => {
@@ -47,7 +50,6 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
     }
   }, [isFavorite]);
 
-  const username = "Test";
   const recipeID = recipe.id;
 
   const { mutate: favoriteMutate } = useFavoriteRecipe();

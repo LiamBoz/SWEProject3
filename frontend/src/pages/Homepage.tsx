@@ -2,10 +2,10 @@
 import "../App.css";
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecipes, useRecipe } from "../hooks/useRecipes.ts";
+import { useRecipes, useRecipe, useUserFavorites } from "../hooks/useRecipes.ts";
 import { usePostRecipe } from "../hooks/postRecipe.ts";
 import type { RecipeCreate } from "../services/recipes.ts";
-import { clearAuth } from "../Auth.ts"
+import { clearAuth, getAuth } from "../Auth.ts"
 import { LogoutButton } from "../components/LogoutButton";
 import Fuse from 'fuse.js';
 import { Input } from "@/components/ui/input";
@@ -24,20 +24,15 @@ export function Homepage(){
   const [minRating, setMinRating] = useState<string>("any");
   const [maxTime, setMaxTime] = useState<string>("any");
 
+  const { username } = getAuth();
   const { data: recipes = [], isLoading, error } = useRecipes();
+  const { data: favoriteRecipes = [], isFavoritesLoading, favoritesError } = useUserFavorites(username);
 
-const getTotalMinutes = (timeStr?: string): number | undefined => {
-  if (!timeStr) return undefined;
-
-  const hoursMatch = timeStr.match(/(\d+)\s*(h|hr|hrs|hour|hours)\b/i);
-  const minutesMatch = timeStr.match(/(\d+)\s*(m|min|mins|minute|minutes)\b/i);
-
-  const hours = hoursMatch ? parseInt(hoursMatch[1], 10) : 0;
-  const mins = minutesMatch ? parseInt(minutesMatch[1], 10) : 0;
-  const total = hours * 60 + mins;
-
-  return total > 0 ? total : undefined;
-};
+  const getTotalMinutes = (timeStr?: string): number | undefined => {
+    if (!timeStr) return undefined;
+    const match = timeStr.match(/(\d+)\s*mins?/i);
+    return match ? parseInt(match[1], 10) : undefined;
+  };
 
   const fuse = useMemo(
     () =>
@@ -63,8 +58,7 @@ const getTotalMinutes = (timeStr?: string): number | undefined => {
       if (maxTime !== "any") {
         const max = parseInt(maxTime, 10);
         const minutes = getTotalMinutes(recipe.total_time);
-		if (minutes == null) return false;
-        if (minutes > max) return false;
+        if (minutes != null && minutes > max) return false;
       }
 
       return true;
@@ -293,7 +287,38 @@ const getTotalMinutes = (timeStr?: string): number | undefined => {
         </div>
 
         }
-        {activeTab === "favorites" && <p>Your favorite recipes appear here.</p>}
+        {activeTab === "favorites" && (
+          <div>
+            {isFavoritesLoading && <p>Loading favorite recipes...</p>}
+            {favoritesError && <p>Failed to load favorite recipes.</p>}
+            {!isFavoritesLoading && !favoritesError && (
+              <div className="recipe-container">
+                {favoriteRecipes.length === 0 ? (
+                  <p>Your favorite recipes appear here.</p>
+                ) : (
+                  favoriteRecipes.map((recipe, index) => (
+                    <div
+                      key={index}
+                      className="recipe-card"
+                      onClick={() => navigate(`/recipe/${recipe.id}`)}
+                    >
+                      <img
+                        src={recipe.img_src}
+                        alt={recipe.recipe_name}
+                        className="recipe-image"
+                      />
+                      <h3 className="recipe-title">{recipe.recipe_name}</h3>
+                      <p className="recipe-desc"></p>
+                      <a className="recipe-link">
+                        View Recipe →
+                      </a>
+                    </div>
+                  ))
+                )}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

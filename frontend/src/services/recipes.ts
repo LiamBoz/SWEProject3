@@ -50,3 +50,8 @@ export async function getRecipe(id: number): Promise<RecipeResponse> {
     const res = await http.get(`recipes/${id}`);
     return res.data as RecipeResponse;
 }
+
+export async function getUserFavorites(username: string): Promise<Recipe[]> {
+    const res = await http.get(`/users/${username}/favorites`);
+    return res.data as Recipe[];
+}
