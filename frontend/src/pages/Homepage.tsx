@@ -164,10 +164,10 @@ const getTotalMinutes = (timeStr?: string): number | undefined => {
                       <SelectValue placeholder="Any rating" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Any Rating</SelectItem>
-                      <SelectItem value="4.0">4.0+</SelectItem>
-                      <SelectItem value="4.5">4.5+</SelectItem>
-                      <SelectItem value="4.75">4.75+</SelectItem>
+                      <SelectItem className="filter-option" value="any">Any Rating</SelectItem>
+                      <SelectItem className="filter-option" value="4.0">4.0+</SelectItem>
+                      <SelectItem className="filter-option" value="4.5">4.5+</SelectItem>
+                      <SelectItem className="filter-option" value="4.75">4.75+</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -178,11 +178,11 @@ const getTotalMinutes = (timeStr?: string): number | undefined => {
                       <SelectValue placeholder="Any time" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Any Time</SelectItem>
-                      <SelectItem value="15">≤ 15 mins</SelectItem>
-                      <SelectItem value="30">≤ 30 mins</SelectItem>
-                      <SelectItem value="45">≤ 45 mins</SelectItem>
-                      <SelectItem value="60">≤ 60 mins</SelectItem>
+                      <SelectItem className="filter-option" value="any">Any Time</SelectItem>
+                      <SelectItem className="filter-option" value="15">≤ 15 mins</SelectItem>
+                      <SelectItem className="filter-option" value="30">≤ 30 mins</SelectItem>
+                      <SelectItem className="filter-option" value="45">≤ 45 mins</SelectItem>
+                      <SelectItem className="filter-option" value="60">≤ 60 mins</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -236,7 +236,7 @@ const getTotalMinutes = (timeStr?: string): number | undefined => {
               className="placeholder-txt"
               value={newRecipe.ingredients}
               onChange={handleInputChange}  
-              placeholder="e.g. Pasta, Eggs, Black pepper, Parmesan cheese, Bacon">
+              placeholder="e.g. 8 oz pasta, 2 eggs, 1/2 cup parmesan cheese">
               
             </Input>
 
@@ -256,6 +256,7 @@ const getTotalMinutes = (timeStr?: string): number | undefined => {
               <Input 
                 type="text"
                 name="prep_time"
+                className="placeholder-txt"
                 value={newRecipe.prep_time}
                 onChange={handleInputChange}
                 placeholder="e.g. 30 mins"
@@ -264,6 +265,7 @@ const getTotalMinutes = (timeStr?: string): number | undefined => {
               <Input 
                 type="text"
                 name="cook_time"
+                className="placeholder-txt"
                 value={newRecipe.cook_time}
                 onChange={handleInputChange}
                 placeholder="e.g. 45 mins" 
@@ -272,6 +274,7 @@ const getTotalMinutes = (timeStr?: string): number | undefined => {
               <Input 
                 type="text"
                 name="total_time"
+                className="placeholder-txt"
                 value={newRecipe.total_time}
                 onChange={handleInputChange}
                 placeholder="e.g. 1 hr 15 mins" 
@@ -285,10 +288,6 @@ const getTotalMinutes = (timeStr?: string): number | undefined => {
                 onChange={handleInputChange}
               />
             </div>
-
-            <label>Image URL (optional)</label>
-            <Input className="placeholder-txt"  type="text" placeholder="https://example.com/recipe.jpg" />
-
             <button type="submit">Add Recipe</button>
           </form>
         </div>
