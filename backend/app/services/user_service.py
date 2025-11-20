@@ -116,5 +116,5 @@ def user_get_favorites(db, username: str):
         raise HTTPException(404, "User not found")
     
     if len(user.favorites) == 0:
-        return "No recipes favorited"
+        return []
     return user.favorites
