@@ -9,6 +9,7 @@ import { clearAuth, getAuth } from "../Auth.ts"
 import { LogoutButton } from "../components/LogoutButton";
 import Fuse from 'fuse.js';
 import { Input } from "@/components/ui/input";
+import { toast } from "react-hot-toast";
 import {
   Select,
   SelectContent,
@@ -92,7 +93,23 @@ const getTotalMinutes = (timeStr?: string): number | undefined => {
 
   function handleAddRecipe(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();             // STOP default page reload
+    if(newRecipe.recipe_name && newRecipe.ingredients && newRecipe.directions){
     mutate(newRecipe);             // call mutation
+    toast.success("Recipe added successfully!");
+    } else{
+      
+    toast.error("Please fill out all required fields: Recipe Name, Ingredients, and Directions.");
+    }
+    //after submission, clear form
+    setNewRecipe({    
+      recipe_name: "",
+      prep_time: "",
+      cook_time: "",
+      total_time: "",
+      servings: 0,
+      ingredients: "",
+      directions: ""
+    });
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -192,7 +209,7 @@ const getTotalMinutes = (timeStr?: string): number | undefined => {
               {filteredRecipes.map((recipe, index) => (
                 <div key={index} className="recipe-card" onClick={() => navigate(`/recipe/${recipe.id}`)}>
                   <img
-                    src={recipe.img_src}
+                    src={recipe.img_src ? recipe.img_src : "/sharp-metal-blade-cooking.svg"}
                     alt={recipe.recipe_name}
                     className="recipe-image"
                   />
