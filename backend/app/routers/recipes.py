@@ -17,3 +17,13 @@ def post_recipe(payload: RecipeCreate, db: Annotated[Any, Depends(get_db)]):
 @router.get("/{recipe_id}", response_model=RecipeResponse)
 def get_recipe_by_id(db: Annotated[Any, Depends(get_db)], recipe_id: int):
     return get_recipe(db, recipe_id)
+
+@router.delete("/{recipe_id}")
+def delete_recipe_by_id(db: Annotated[Any, Depends(get_db)], recipe_id: int):
+    deleted = delete_recipe(db, recipe_id)
+
+    if not deleted:
+        from fastapi import HTTPException
+        raise HTTPException(status_code=404, detail="Recipe not found")
+    
+    return {"success": True, "deleted_recipe_id": recipe_id}

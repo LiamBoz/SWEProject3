@@ -17,10 +17,12 @@ body {
   color: black;
   text-align: center;
   align-items: center;
+  justify-content: center;
 }
 
 .welcome {
   display: flex;
+
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -66,4 +68,23 @@ body {
 
 .login-btn:hover {
   background-color: #258968;
+}
+
+.login-requirements
+{
+  display: flex;
+  margin-top: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 15px 20px;
+  flex-direction: column;
+  max-width: 450px;
+  text-align: center;
+  font-size: 0.9rem;
+  
+}
+
+.username-requirement {
+  /* margin-top: 10px; */
+  margin-bottom: 12px;
 }

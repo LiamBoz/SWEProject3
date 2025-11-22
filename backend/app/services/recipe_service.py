@@ -22,3 +22,12 @@ def get_recipe(db, id: int):
     if not recipe:
         raise HTTPException(status=404, detail="Recipe not found")
     return recipe
+
+def delete_recipe(db, recipe_id: int):
+    recipe = db.query(Recipe).filter(Recipe.id == recipe_id).first()
+    if not recipe:
+        return False
+    
+    db.delete(recipe)
+    db.commit()
+    return True

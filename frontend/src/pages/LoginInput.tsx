@@ -138,7 +138,7 @@ export function LoginInput() {
         <p className="welcome-message">
           Welcome to Chopify
         </p>
-      {/*<form onSubmit={handleInput}> */}
+
       {(!isLoggingIn) &&
           <div>
             <button className="login-btn" onClick={LoggingIn}>Login</button>
@@ -187,18 +187,17 @@ export function LoginInput() {
         <button className="login-btn" onClick={() => {setIsLoggingIn(false); setCreateAccount(false); setLoginActivated(false); setShowUsername(false); setUsernameInput(''); setPasswordInput('');}}>
           Cancel
         </button>
-          {/* </form> */}
 
          {/*Conditional paragraphs displayed*/}
           {!showUsername &&
-            <p>
-            Username may only contain letters with no spaces, numbers, or special symbols.
-          </p>}
-
-          {!showUsername &&
-          <p>
-            Password must be 8 characters long, must include at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special symbol.
-          </p>}
+          <div className="login-requirements">
+          <p className="username-requirement">
+            Username may only contain letters or numbers with no spaces or special symbols.
+          </p>
+          <p className="password-requirement">
+            Password must be at least 8 characters long, must include at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special symbol.
+          </p>
+          </div>}
           </>
 }
     </div>  
