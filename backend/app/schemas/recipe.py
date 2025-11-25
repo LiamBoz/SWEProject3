@@ -18,7 +18,12 @@ class RecipeCreate(BaseModel):
     servings: int
     ingredients: str
     directions: str
-    # nutrition: str | None = None
+    nutrition: str = "NaN"
+    overview: str = "NaN"
+    rating: int = 0
+    url: str = "NaN"
+    img_src: str = "NaN"
+    cuisine_path: str = "NaN"
 
 class RecipeResponse(Recipes):
     prep_time: str

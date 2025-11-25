@@ -17,7 +17,12 @@ export type RecipeCreate = {
     servings: number
     ingredients: string
     directions: string
-    // nutrition: string
+    nutrition: string
+    overview: string
+    rating: number
+    url: string
+    img_src: string
+    cuisine_path: string
 };
 
 export type RecipeResponse = {
@@ -36,13 +41,35 @@ export type RecipeResponse = {
     overview: string;
 };
 
+function cleanRecipeData(recipe: RecipeCreate): RecipeResponse {
+    const cleanedRecipe: any = {};
+    for(const key in recipe){
+        if(recipe[key] === undefined || recipe[key] === null || recipe[key] === ""){
+            recipe[key] = "NaN";
+            console.log(recipe[key]);
+            console.log("undefined or null found");
+        }
+        cleanedRecipe[key] = recipe[key];
+        console.log(`key: ${key}, value: ${recipe[key]}`);
+    }
+    console.log("this function is being called");
+    cleanedRecipe.nutrition = "NaN";
+    cleanedRecipe.overview = "NaN";
+    cleanedRecipe.rating = 0;
+    cleanedRecipe.url = "NaN";
+    cleanedRecipe.img_src = "NaN";
+    console.log(cleanedRecipe.nutrition);
+    return cleanedRecipe as RecipeResponse;
+}
+
 export async function getRecipes(): Promise<Recipe[]> {
     const res = await http.get("/recipes");
     return res.data as Recipe[];
 }
 
 export async function postRecipe(newRecipe: RecipeCreate): Promise<Boolean> {
-    const res = await http.post("/recipes", newRecipe);
+    const cleanedRecipe = cleanRecipeData(newRecipe);
+    const res = await http.post("/recipes", cleanedRecipe);
     return res.data as Boolean;
 }
 
