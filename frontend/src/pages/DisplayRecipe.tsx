@@ -146,7 +146,7 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
         }
 
       {/* Rating */}
-      {recipe.rating && 
+      {recipe.rating != 0 && 
       <p className="recipe-info">Rating: {recipe.rating} / 5</p>
       }
 
