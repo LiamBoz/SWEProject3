@@ -82,7 +82,13 @@ const getTotalMinutes = (timeStr?: string): number | undefined => {
     total_time: "",
     servings: 0,
     ingredients: "",
-    directions: ""
+    directions: "",
+    nutrition: "NaN",
+    overview: "NaN",
+    rating: 0,
+    url: "NaN",
+    img_src: "NaN",
+    cuisine_path: "NaN"
   });
 
   function handleLogout(){
@@ -95,9 +101,8 @@ const getTotalMinutes = (timeStr?: string): number | undefined => {
     e.preventDefault();             // STOP default page reload
     if(newRecipe.recipe_name && newRecipe.ingredients && newRecipe.directions){
     mutate(newRecipe);             // call mutation
-    toast.success("Recipe added successfully!");
-    } else{
-      
+    toast.success("Recipe added successfully! Please reload the page to view your recipe.");
+    } else{    
     toast.error("Please fill out all required fields: Recipe Name, Ingredients, and Directions.");
     }
     //after submission, clear form
@@ -108,7 +113,13 @@ const getTotalMinutes = (timeStr?: string): number | undefined => {
       total_time: "",
       servings: 0,
       ingredients: "",
-      directions: ""
+      directions: "",
+      nutrition: "NaN",
+      overview: "NaN",
+      rating: 0,
+      url: "NaN",
+      img_src: "NaN",
+      cuisine_path: "NaN"
     });
   }
 
@@ -209,7 +220,7 @@ const getTotalMinutes = (timeStr?: string): number | undefined => {
               {filteredRecipes.map((recipe, index) => (
                 <div key={index} className="recipe-card" onClick={() => navigate(`/recipe/${recipe.id}`)}>
                   <img
-                    src={recipe.img_src ? recipe.img_src : "/sharp-metal-blade-cooking.svg"}
+                    src={recipe.img_src != "NaN" ? recipe.img_src : "/sharp-metal-blade-cooking.svg"}
                     alt={recipe.recipe_name}
                     className="recipe-image"
                   />
@@ -325,7 +336,7 @@ const getTotalMinutes = (timeStr?: string): number | undefined => {
                       onClick={() => navigate(`/recipe/${recipe.id}`)}
                     >
                       <img
-                        src={recipe.img_src}
+                        src={recipe.img_src != "NaN" ? recipe.img_src : "/sharp-metal-blade-cooking.svg"}
                         alt={recipe.recipe_name}
                         className="recipe-image"
                       />
