@@ -87,3 +87,8 @@ Now you can use our app by opening a browser and searching:
 
 Create your account and enjoy!
 You can browse recipes on our 'All Recipes' tab. You can click on any recipe card to view a recipe. Once viewing a recipe you like, you can favorite it by clicking on the heart icon. View your favorites on the 'Favorites' tab. You can also upload your own recipes under the 'Add a Recipe' tab.
+
+
+## When finished, make sure to run in your terminal:
+
+> `docker compose down`
