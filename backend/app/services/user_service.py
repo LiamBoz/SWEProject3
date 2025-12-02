@@ -22,12 +22,12 @@ async def create_user(db, username: str, password: str):
     if exists:
         raise HTTPException(status_code=404, detail="User already exists")
     
-    user = User(username=username, password_hash=get_password_hash(password))
+    user = User(username=username, password_hash=get_password_hash(password), is_admin=False)
     db.add(user)
     try:
         db.commit()
         token = create_token()
-        return {"username": user.username, "token": token}
+        return {"username": user.username, "token": token, "is_admin": user.is_admin}
     except Exception:
         raise HTTPException(status_code=500, detail="Server error")
 
@@ -41,7 +41,7 @@ async def login_user(db, username: str, password: str):
 
     try:
         token = create_token()
-        return {"username": exists.username, "token": token}
+        return {"username": exists.username, "token": token, "is_admin": exists.is_admin}
     except Exception:
         raise HTTPException(status_code=500, detail="Server error")
 

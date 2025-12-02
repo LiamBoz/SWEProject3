@@ -16,7 +16,9 @@ class UserResponse(BaseModel):
 class RegisterResponse(BaseModel):
     username: str
     token: str
+    is_admin: bool
 
 class LoginResponse(BaseModel):
     username: str
     token: str
+    is_admin: bool

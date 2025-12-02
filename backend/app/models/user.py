@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, ForeignKey, Table
+from sqlalchemy import Column, String, Integer, ForeignKey, Table, Boolean
 from app.db.base import Base
 from sqlalchemy.orm import relationship
 
@@ -15,6 +15,7 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String(64), nullable=False, index=True, unique=True) 
     password_hash = Column(String(64), nullable=False)
+    is_admin = Column(Boolean)
 
     favorites = relationship(
         "Recipe",

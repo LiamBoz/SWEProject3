@@ -1,11 +1,27 @@
 import psycopg2
 import pandas as pd
 import os
+from pwdlib import PasswordHash
+import secrets
+
+hasher = PasswordHash.recommended()
+
+def get_password_hash(password):
+   return hasher.hash(password)
 
 connection = psycopg2.connect(os.getenv('DATABASE_URL'))
 
 connection.autocommit = True
 cursor = connection.cursor()
+
+ADMIN_USERNAME = 'admin'
+password_hash = get_password_hash('password')
+
+cursor.execute("""
+    INSERT INTO users (username, password_hash, is_admin)
+    VALUES (%s, %s, TRUE)
+    ON CONFLICT (username) DO NOTHING;
+""", (ADMIN_USERNAME, password_hash))
 
 # Read csv with pandas and insert into the database
 df = pd.read_csv('recipes.csv', index_col=0)
