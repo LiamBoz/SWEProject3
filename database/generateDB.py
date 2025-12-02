@@ -1,12 +1,8 @@
 import psycopg2
 import pandas as pd
+import os
 
-connection = psycopg2.connect(database='recipes_db',
-                        user='admin', 
-                        password='password', 
-                        host='localhost', 
-                        port='5432'
-                        )
+connection = psycopg2.connect(os.getenv('DATABASE_URL'))
 
 connection.autocommit = True
 cursor = connection.cursor()

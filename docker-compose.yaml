@@ -6,6 +6,11 @@ services:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=recipes_db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d recipes_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
     restart: always
     volumes:
       # - db_data:/var/lib/postgresql/data
@@ -18,12 +23,14 @@ services:
       context: ./backend
     env_file:
       - ./backend/.env
-    volumes:
-      - ./backend:/app
     ports:
       - 8000:8000
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - ./database:/database:ro
   frontend:
     build:
       context: ./frontend
