@@ -1,5 +1,5 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getRecipes, getRecipe, getUserFavorites } from "../services/recipes";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { getRecipes, getRecipe, getUserFavorites, delRecipe } from "../services/recipes";
 
 export function useRecipes() {
   return useQuery({
@@ -25,10 +25,14 @@ export function useUserFavorites(username: string) {
   });
 }
 
-export function delRecipe(id: number) {
-  return useQuery({
-    queryKey: ["recipe", id],
-    queryFn: () => delRecipe(id),
-    refetchOnWindowFocus: false,
+export function useDeleteRecipe() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: number) => delRecipe(id),
+    onSuccess: (_data, id) => {
+      queryClient.invalidateQueries({ queryKey: ["recipes"] });
+      queryClient.invalidateQueries({ queryKey: ["recipe", id] });
+    },
   });
 }

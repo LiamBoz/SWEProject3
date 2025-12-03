@@ -2,7 +2,7 @@
 import "./DisplayRecipe.css";
 // @ts-ignore: missing module declaration
 import "../App.css";
-import { useRecipe, delRecipe } from "../hooks/useRecipes.ts";
+import { useRecipe, useDeleteRecipe } from "../hooks/useRecipes.ts";
 import type { RecipeResponse } from "../services/recipes.ts";
 import { useParams } from "react-router-dom";
 import { HeartIcon } from "../components/ui/icons/heroicons-heart"
@@ -41,7 +41,7 @@ export function DisplayRecipeHook(){
 
 function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
   const { username } = getAuth();
-  const { is_admin } = isAdmin();
+  const is_admin = isAdmin();
   const { data: isFavorite, isLoading, error } = useIsFavorited(username, recipe.id);
   let [favorite, setFavorite] =  useState(isFavorite);
 
@@ -55,6 +55,7 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
 
   const { mutate: favoriteMutate } = useFavoriteRecipe();
   const { mutate: unfavoriteMutate } = useUnfavoriteRecipe();
+  const { mutate: deleteRecipeMutate } = useDeleteRecipe();
 
   function toggleFavorite(username: string, recipeId: number){
     setFavorite(!favorite);
@@ -76,6 +77,11 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
       );
     }
   }
+
+  function handleDelete() {
+    deleteRecipeMutate(recipe.id);
+  }
+
   /*
   recipe_name
   total_time
@@ -127,7 +133,24 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
  
   return (
     <div className="display-recipe-page">
-      <h1 className="title">Chopify</h1>
+    <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <h1 className="title">Chopify</h1>
+        {is_admin && (
+          <button
+            onClick={handleDelete}
+            aria-label="Delete recipe"
+            className="delete-recipe-button"
+          >
+            🗑️
+          </button>
+        )}
+      </div>
       {/* Title */}
       <div className="header-favorite">
       <h2 className="recipe-name">{recipe.recipe_name}</h2>

@@ -2,7 +2,7 @@ const AUTH_TOKEN_KEY = "token";
 const AUTH_USERNAME_KEY = "username";
 const AUTH_IS_ADMIN = "is_admin";
 
-export function saveAuth(username: string, token: string, is_admin: boolean) {
+export function saveAuth(username: string, token: string, is_admin: Boolean) {
   localStorage.setItem(AUTH_USERNAME_KEY, username);
   localStorage.setItem(AUTH_TOKEN_KEY, token);
   localStorage.setItem(AUTH_IS_ADMIN, is_admin);
