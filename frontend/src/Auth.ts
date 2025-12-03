@@ -2,10 +2,10 @@ const AUTH_TOKEN_KEY = "token";
 const AUTH_USERNAME_KEY = "username";
 const AUTH_IS_ADMIN = "is_admin";
 
-export function saveAuth(username: string, token: string, is_admin: Boolean) {
+export function saveAuth(username: string, token: string, is_admin: boolean) {
   localStorage.setItem(AUTH_USERNAME_KEY, username);
   localStorage.setItem(AUTH_TOKEN_KEY, token);
-  localStorage.setItem(AUTH_IS_ADMIN, is_admin);
+  localStorage.setItem(AUTH_IS_ADMIN, String(is_admin));
 }
 
 export function clearAuth() {
@@ -27,5 +27,5 @@ export function isAuthenticated() {
 
 export function isAdmin(){
   const is_admin = localStorage.getItem(AUTH_IS_ADMIN);
-  return is_admin;
+  return is_admin === "true";
 }
