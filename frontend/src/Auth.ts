@@ -27,5 +27,5 @@ export function isAuthenticated() {
 
 export function isAdmin(){
   const is_admin = localStorage.getItem(AUTH_IS_ADMIN);
-  return is_admin;
+  return is_admin === 'true';
 }
