@@ -82,3 +82,8 @@ export async function getUserFavorites(username: string): Promise<Recipe[]> {
     const res = await http.get(`/users/${username}/favorites`);
     return res.data as Recipe[];
 }
+
+export async function delRecipe(id: number): Promise<Boolean> {
+    const res = await http.delete(`recipes/${id}`);
+    return res.data as Boolean;
+}

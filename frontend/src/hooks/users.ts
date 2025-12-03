@@ -7,8 +7,8 @@ export function useCreateUser() {
     return useMutation({
         mutationKey: ["userCreate"],
         mutationFn: createUser,
-		onSuccess: (data: { username: string; token: string }) => {
-		  saveAuth(data.username, data.token);
+		onSuccess: (data: { username: string; token: string; is_admin: Boolean}) => {
+		  saveAuth(data.username, data.token, data.is_admin);
 		},
     });
 }
@@ -17,8 +17,8 @@ export function useLoginUser() {
     return useMutation({
         mutationKey: ["userLogin"],
         mutationFn: loginUser,
-		onSuccess: (data: { username: string; token: string }) => {
-		  saveAuth(data.username, data.token);
+		onSuccess: (data: { username: string; token: string; is_admin: Boolean}) => {
+		  saveAuth(data.username, data.token, data.is_admin);
 		},
     });
 }

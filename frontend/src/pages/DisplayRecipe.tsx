@@ -2,13 +2,13 @@
 import "./DisplayRecipe.css";
 // @ts-ignore: missing module declaration
 import "../App.css";
-import { useRecipe } from "../hooks/useRecipes.ts";
+import { useRecipe, delRecipe } from "../hooks/useRecipes.ts";
 import type { RecipeResponse } from "../services/recipes.ts";
 import { useParams } from "react-router-dom";
 import { HeartIcon } from "../components/ui/icons/heroicons-heart"
 import { useId, useState, useEffect } from "react";
 import { useFavoriteRecipe, useUnfavoriteRecipe, useIsFavorited } from "../hooks/users.ts";
-import { getAuth } from "../Auth.ts";
+import { getAuth, isAdmin } from "../Auth.ts";
 
 
 export function DisplayRecipeHook(){
@@ -41,6 +41,7 @@ export function DisplayRecipeHook(){
 
 function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
   const { username } = getAuth();
+  const { is_admin } = isAdmin();
   const { data: isFavorite, isLoading, error } = useIsFavorited(username, recipe.id);
   let [favorite, setFavorite] =  useState(isFavorite);
 

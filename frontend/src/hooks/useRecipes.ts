@@ -24,3 +24,11 @@ export function useUserFavorites(username: string) {
     refetchOnWindowFocus: false,
   });
 }
+
+export function delRecipe(id: number) {
+  return useQuery({
+    queryKey: ["recipe", id],
+    queryFn: () => delRecipe(id),
+    refetchOnWindowFocus: false,
+  });
+}
