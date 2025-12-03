@@ -9,6 +9,7 @@ import { HeartIcon } from "../components/ui/icons/heroicons-heart"
 import { useId, useState, useEffect } from "react";
 import { useFavoriteRecipe, useUnfavoriteRecipe, useIsFavorited } from "../hooks/users.ts";
 import { getAuth, isAdmin } from "../Auth.ts";
+import { useNavigate } from "react-router-dom";
 
 
 export function DisplayRecipeHook(){
@@ -42,6 +43,7 @@ export function DisplayRecipeHook(){
 function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
   const { username } = getAuth();
   const is_admin = isAdmin();
+  const navigate = useNavigate();
   const { data: isFavorite, isLoading, error } = useIsFavorited(username, recipe.id);
   let [favorite, setFavorite] =  useState(isFavorite);
 
@@ -56,6 +58,15 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
   const { mutate: favoriteMutate } = useFavoriteRecipe();
   const { mutate: unfavoriteMutate } = useUnfavoriteRecipe();
   const { mutate: deleteRecipeMutate } = useDeleteRecipe();
+
+
+  function handleDelete() {
+    deleteRecipeMutate(recipe.id, {
+      onSuccess: () => {
+        navigate("/homepage");
+      },
+    });
+  }
 
   function toggleFavorite(username: string, recipeId: number){
     setFavorite(!favorite);
@@ -78,9 +89,6 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
     }
   }
 
-  function handleDelete() {
-    deleteRecipeMutate(recipe.id);
-  }
 
   /*
   recipe_name
@@ -147,7 +155,7 @@ function DisplayRecipe({ recipe } : { recipe: RecipeResponse }) {
             aria-label="Delete recipe"
             className="delete-recipe-button"
           >
-            🗑️
+            Delete this Recipe
           </button>
         )}
       </div>
